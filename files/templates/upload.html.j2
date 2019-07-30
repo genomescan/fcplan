@@ -1,0 +1,123 @@
+{% extends "base.html.j2" %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<style>
+
+.btn {
+  width: 180px;
+  
+}
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-xl-3">
+            <div class="form-group" style="margin-top: 15px">
+                <label for="sel1">Project / folder:</label>
+                <select class="form-control" id="sel1">
+                    <option value="0">All files</option>
+                    {% for project in projects %}
+                    <option value="{{ project.id }}">{{ project.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+        
+            <form method="post" class="form" enctype="multipart/form-data">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{ form }}
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+            <button class="btn btn-primary" style="margin-bottom: 15px" id="download_files">Download</button>
+            <button id="getshow" type="button" style="margin-bottom: 15px"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Show / play</button>
+            <button class="btn btn-success" style="margin-bottom: 15px" id="">Add to group</button>
+            <button class="btn btn-warning" style="margin-bottom: 15px" id="">Delete from group</button>
+            <button class="btn btn-success" style="margin-bottom: 15px" id="">Add group</button>
+            <button class="btn btn-danger"  style="margin-bottom: 15px" id="">Delete group</button>
+        </div>
+        <div class="col-sm-12 col-xl-9">
+            <script>
+                var get_table = 'Document'
+            </script>
+            {% include "table.html.j2" %}
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Media</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style='overflow: scroll' id="modalBody">
+        
+        
+
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="rotateimgL">Rotate</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+
+$(document).on('click', '#rotateimgL', function () {
+    $("#showimage").rotateLeft([angle=90]);
+    $("#showimage").height(550).width(400);
+});
+
+$(document).on('click', '#getshow', function () {
+    let id = 0;
+    $('#dt1 tr.selected').each(function(index,element){
+        id = table.row(this).id();
+        console.log(id);
+    });
+    if (id != 0) {
+        $.ajax({
+            type: "GET",
+            url: '/getshow/'+id,
+
+            success: function (result) {
+                console.log(result)
+                $("#modalBody").html(result);
+            }
+        });
+    }
+})
+$(document).on('click', '#download_files', function() {
+    $('#dt1 tr.selected').each(function(index,element){
+        let id = table.row(this).id();
+        if (typeof id != 'undefined') {
+            var link = '/files/download/' + id
+            window.open(link)
+        }
+    });
+});
+$(document).on('change', '#sel1', function() {
+    project = $(this).find(":selected").val();
+    console.log(project);
+    table.clear().draw().ajax.reload();
+});
+</script>
+{% else %}
+<h3>Forbidden</h3>
+{% endif %}
+{% endblock %}

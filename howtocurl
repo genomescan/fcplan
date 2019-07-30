@@ -1,0 +1,47 @@
+LOGIN_URL=http://localhost:8000/accounts/login/
+YOUR_USER='niels'
+YOUR_PASS='blablabla'
+COOKIES=cookies.txt
+CURL_BIN="curl -s -b $COOKIES -c $COOKIES  -e $LOGIN_URL  --cert client.crt --key client.key"
+CURL_BIN2="curl -s -b $COOKIES -c $COOKIES -e $LOGIN_URL  --cert client.crt --key client.key"
+echo -n "Django Auth: get csrftoken ..."
+echo
+echo $CURL_BIN $LOGIN_URL
+
+$CURL_BIN $LOGIN_URL > /dev/null
+
+DJANGO_TOKEN="csrfmiddlewaretoken=$(grep csrftoken $COOKIES | sed 's/^.*csrftoken\s*//')"
+echo
+echo $DJANGO_TOKEN
+echo -n " perform login ..."
+echo
+echo $CURL_BIN2 \
+    -d "$DJANGO_TOKEN&username=$YOUR_USER&password=$YOUR_PASS" \
+    -X POST $LOGIN_URL
+
+$CURL_BIN \
+    -d "$DJANGO_TOKEN&username=$YOUR_USER&password=$YOUR_PASS" \
+    -X POST $LOGIN_URL > /dev/null
+
+DJANGO_TOKEN="csrfmiddlewaretoken=$(grep csrftoken $COOKIES | sed 's/^.*csrftoken\s*//')"
+echo
+echo $DJANGO_TOKEN
+
+
+echo -n " do something while logged in ..."
+echo
+echo $CURL_BIN2 \
+    -d "$DJANGO_TOKEN" \
+    -X POST http://localhost:8000/test/
+
+$CURL_BIN2 \
+    -d "$DJANGO_TOKEN" \
+    -X POST http://localhost:8000/test/
+
+echo " logout"
+#rm $COOKIES
+
+
+
+#CURL COMMAND FOR UPLOADING AND STUFF: 
+#curl -b cookies.txt -c cookie -e https://neon/accounts/login/ --cert client.crt --key client.key  -H "X-CSRFToken: wHcclYOPtMz9TsuP9mdhegEZxLJHdRyIXgTzc6MFYuyFHHFNay2R4RJuUesKSTpa" -H "Content-type: multipart/form-data" -X POST -F 'test=blaat' -F 'q=6' -F 'name=@json_103307-011_WSI.json' https://neon/test/

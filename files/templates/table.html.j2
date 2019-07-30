@@ -1,0 +1,28 @@
+
+{% block table %}
+<table class="table table-responsive-sm table-responsive-xl table-hover" id="dt1" >  </table>
+<script>
+var table
+$(document).ready(function() {
+    table = $('#dt1').DataTable({
+        "serverSide": true,
+        "ajax": {   "url": "/get_json_table/"+get_table, 
+                    "data": function ( d ) {
+                                d.project = project;
+                            }, 
+                    "type": "GET" },
+        "autoWidth": false,
+        "columns": [
+            {% for header in headers %}
+                {% if loop.index > 1 %}
+                    { "data": "{{ header.header }}", "title": "{{ header.caption }}" },
+                {% endif %}
+            {% endfor %}
+                    ]
+    });
+    $('#dt1 tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    });
+});
+</script>
+{% endblock %}

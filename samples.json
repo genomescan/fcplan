@@ -1,0 +1,260 @@
+{
+    "samples": {
+        "103373-021-001": {
+            "sampleid": "103373-021-001",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-001_AGGCAGAA-AGGCTTAG_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-001_AGGCAGAA-AGGCTTAG_L001_R2.fastq.gz",
+                        "filesize1": 4565555740,
+                        "filesize2": 4696737089,
+                        "checksum1": "7436fbfb4658f2549916505e018fb816",
+                        "checksum2": "0c13f41d749ba02873b8ccf77d1bc032"
+                    }
+                ]
+            }
+        },
+        "103373-021-002": {
+            "sampleid": "103373-021-002",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-002_CAGAGAGG-AGGCTTAG_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-002_CAGAGAGG-AGGCTTAG_L001_R2.fastq.gz",
+                        "filesize1": 4661460807,
+                        "filesize2": 4697408422,
+                        "checksum1": "740b42ddc3343dffe1fbe6bfab2f8e98",
+                        "checksum2": "12d57be9b9636d3c591fe558436a7ec1"
+                    }
+                ]
+            }
+        },
+        "103373-021-003": {
+            "sampleid": "103373-021-003",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-003_CTCTCTAC-ATAGAGAG_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-003_CTCTCTAC-ATAGAGAG_L001_R2.fastq.gz",
+                        "filesize1": 4330033051,
+                        "filesize2": 4373246903,
+                        "checksum1": "d52fcac29ebb70f2b544ba1900dcefaf",
+                        "checksum2": "086d40057d45388b5c1997be161a7310"
+                    }
+                ]
+            }
+        },
+        "103373-021-004": {
+            "sampleid": "103373-021-004",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-004_CGTACTAG-TACTCCTT_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-004_CGTACTAG-TACTCCTT_L001_R2.fastq.gz",
+                        "filesize1": 4571436336,
+                        "filesize2": 4640149416,
+                        "checksum1": "c01f2bf53e509071a5f1fd09276230cc",
+                        "checksum2": "aab683cdca3565bf93530350080b11f3"
+                    }
+                ]
+            }
+        },
+        "103373-021-005": {
+            "sampleid": "103373-021-005",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-005_AGGCAGAA-TATGCAGT_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-005_AGGCAGAA-TATGCAGT_L001_R2.fastq.gz",
+                        "filesize1": 3657449686,
+                        "filesize2": 3748785934,
+                        "checksum1": "6b3ff3dc354d3191a429ca79d243458a",
+                        "checksum2": "0cd9b919abcf3d41b714ff5453637c2a"
+                    }
+                ]
+            }
+        },
+        "103373-021-006": {
+            "sampleid": "103373-021-006",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-006_CGTACTAG-CTCCTTAC_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-006_CGTACTAG-CTCCTTAC_L001_R2.fastq.gz",
+                        "filesize1": 3701600821,
+                        "filesize2": 3767024077,
+                        "checksum1": "24faf760583173071c82e94f889ca988",
+                        "checksum2": "82f01f1a43aaebf9d0b8c2853d123d2d"
+                    }
+                ]
+            }
+        },
+        "103373-021-007": {
+            "sampleid": "103373-021-007",
+            "customerid": "QXTR_367-Exoom_v1",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-007_TCCTGAGC-TACTCCTT_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-007_TCCTGAGC-TACTCCTT_L001_R2.fastq.gz",
+                        "filesize1": 4069860920,
+                        "filesize2": 4099623198,
+                        "checksum1": "4e2abd79c5a1608f5e583b854b92dceb",
+                        "checksum2": "080fae82f60558586b507a49c0643c9e"
+                    }
+                ]
+            }
+        },
+        "103373-021-008": {
+            "sampleid": "103373-021-008",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-008_AAGAGGCA-AGGCTTAG_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-008_AAGAGGCA-AGGCTTAG_L001_R2.fastq.gz",
+                        "filesize1": 94902789,
+                        "filesize2": 98764621,
+                        "checksum1": "5ab80ffa68b5541162faecf24c9c4990",
+                        "checksum2": "614967038f0a954365bedc57de143120"
+                    }
+                ]
+            }
+        },
+        "103373-021-009": {
+            "sampleid": "103373-021-009",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-009_CGAGGCTG-AGAGGATA_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-009_CGAGGCTG-AGAGGATA_L001_R2.fastq.gz",
+                        "filesize1": 68236691,
+                        "filesize2": 69110830,
+                        "checksum1": "b49611c497892e8f19fe9a4699505683",
+                        "checksum2": "7d5aaa8076820e201cd67d7a55493cba"
+                    }
+                ]
+            }
+        },
+        "103373-021-010": {
+            "sampleid": "103373-021-010",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-010_GGACTCCT-GCGATCTA_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-010_GGACTCCT-GCGATCTA_L001_R2.fastq.gz",
+                        "filesize1": 90870819,
+                        "filesize2": 91110526,
+                        "checksum1": "fef28d6b448f0b29eb6db30a3c0df000",
+                        "checksum2": "ff1447e27c09714e425c9ed01c3dd0f4"
+                    }
+                ]
+            }
+        },
+        "103373-021-011": {
+            "sampleid": "103373-021-011",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-011_CGTACTAG-AGAGGATA_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-011_CGTACTAG-AGAGGATA_L001_R2.fastq.gz",
+                        "filesize1": 61709625,
+                        "filesize2": 62059517,
+                        "checksum1": "9e2de9aaeca6d978ec5fef69aa92d8c0",
+                        "checksum2": "bd4e927949aafdfd2a996a34dfd1536a"
+                    }
+                ]
+            }
+        },
+        "103373-021-012": {
+            "sampleid": "103373-021-012",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-012_AGGCAGAA-TCTACTCT_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-012_AGGCAGAA-TCTACTCT_L001_R2.fastq.gz",
+                        "filesize1": 92197333,
+                        "filesize2": 93650221,
+                        "checksum1": "842f5b5c4b74ed6d4cf175b51b9ae256",
+                        "checksum2": "81f3647e35a0de6a9625787fc38ad764"
+                    }
+                ]
+            }
+        },
+        "103373-021-013": {
+            "sampleid": "103373-021-013",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-013_TAAGGCGA-ATAGAGAG_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-013_TAAGGCGA-ATAGAGAG_L001_R2.fastq.gz",
+                        "filesize1": 78484880,
+                        "filesize2": 79593208,
+                        "checksum1": "0fe9bb05325f16c4cdfe9b7a45ded276",
+                        "checksum2": "22a34dcb30f61d13aa1d029197835f5f"
+                    }
+                ]
+            }
+        },
+        "103373-021-014": {
+            "sampleid": "103373-021-014",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-014_CAGAGAGG-GCGATCTA_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-014_CAGAGAGG-GCGATCTA_L001_R2.fastq.gz",
+                        "filesize1": 67330812,
+                        "filesize2": 67117598,
+                        "checksum1": "1c5bc3c65c454385586ee8956f75b1e1",
+                        "checksum2": "3612dcf602666193b3807c362c8d59c7"
+                    }
+                ]
+            }
+        },
+        "103373-021-015": {
+            "sampleid": "103373-021-015",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-015_TCCTGAGC-CTCCTTAC_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-015_TCCTGAGC-CTCCTTAC_L001_R2.fastq.gz",
+                        "filesize1": 75050661,
+                        "filesize2": 75815034,
+                        "checksum1": "2753dd7ce3255324d832435309132ab2",
+                        "checksum2": "f7f37e9f09c780ce03a2e3791159fead"
+                    }
+                ]
+            }
+        },
+        "103373-021-016": {
+            "sampleid": "103373-021-016",
+            "customerid": "QXTR_367-ONCO_v4",
+            "libraries": {
+                "lib0": [
+                    {
+                        "R1": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-016_AAGAGGCA-TCTACTCT_L001_R1.fastq.gz",
+                        "R2": "\/media\/neon_raid\/Runs\/103373-021\/H25TYBBXY_103373-021-016_AAGAGGCA-TCTACTCT_L001_R2.fastq.gz",
+                        "filesize1": 89262312,
+                        "filesize2": 90986086,
+                        "checksum1": "620d36401bb333ea4b66af4340fc4306",
+                        "checksum2": "d8556d091438ae78553f17a968d2c7e0"
+                    }
+                ]
+            }
+        }
+    }
+}

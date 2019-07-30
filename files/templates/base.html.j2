@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+<title>{% block title %}StellarValley{% endblock %}</title>
+    <link rel="stylesheet" href="{{ static('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ static('css/basic.css') }}">
+    <link rel="stylesheet" type="text/css" href=" {{ static('DataTables/datatables.min.css') }}"/>
+    <link href="{{ static('vendor/startbootstrap-landing-page-gh-pages/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ static('vendor/startbootstrap-landing-page-gh-pages/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="{{ static('vendor/startbootstrap-landing-page-gh-pages/css/landing-page.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{{ static('images/favicon.gif') }}"/>
+    <script src="{{ static('js/jquery.min.js') }}"></script>
+    <script src="{{ static('js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src=" {{ static('DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src=" {{ static('js/jquery.rotate.1-1.js') }}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-primary fixed-top">
+   <a class="navbar-brand" href="/">StellarValley.com</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Examples</a>
+       {% if request.user.is_authenticated %}
+    <a class="nav-link" href="/files">Files</a>
+    {% if request.user.is_staff %}
+    <a class="nav-link" href="/leads">Leads</a>
+    {% endif %}
+    <a class="nav-link" href="/accounts/logout">Sign out</a>
+    {% else %}
+    <a class="nav-link" href="/accounts/login">Sign In</a>
+    {% endif %}
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<br><br><br>
+
+
+
+
+{% block content %}{% endblock %}
+
+
+
+<br><br><footer class="page-footer font-small blue static-bottom" style="margin-top: -20px">
+  <!-- Copyright -->
+  <div style='background-color: #edf3ff;'>
+  <div class="footer-copyright text-center ">
+© 2018 StellarValley.com &nbsp;-&nbsp;
+  Powered by:&nbsp;
+  <img src="{{ static('images/cpp.png') }}" height=35 width=35></img>
+    <img src="{{ static('images/boost-cpp-programlama-egitimi.png') }}" height=35 width=60></img>
+    <img src="{{ static('images/2000px-PHP-logo.svg.png') }}" height=35 width=40></img>
+    <img src="{{ static('images/bootstrap-stack.png') }}" height=35 width=35></img>
+    <img src="{{ static('images/django.png') }}" height=50 width=50></img>
+    <img src="{{ static('images/python-logo-generic.svg') }}" height=35 width=80></img>
+    <img src="{{ static('images/DataTables-2.0-1038x576.png') }}" height=40 width=50></img>
+    <img src="{{ static('images/jquery-cheat.png') }}" height=70 width=70></img>
+    <img src="{{ static('images/nginx.png') }}" height=30 width=60></img>
+    <img src="{{ static('images/logo_tiny_mce.jpg') }}" height=30 width=60></img>
+    <img src="{{ static('images/singularity.svg') }}" height=35 width=35></img>
+  </div>
+  <!-- Copyright -->
+</div>
+</footer>
+<script>
+
+let project = 0;
+$(function(){
+     var navMain = $(".navbar-collapse");
+     navMain.on("click", "a:not([data-toggle])", null, function () {
+         navMain.collapse('hide');
+     });
+ });
+</script>
+</body>
+</html>

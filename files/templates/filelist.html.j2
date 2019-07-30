@@ -1,0 +1,40 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-xl-9">
+<table class="table table-responsive-sm table-responsive-xl table-hover" id="dt1">
+    <thead><tr>
+        <th>Filename</th><th>Checksum (md5)</th>
+    </tr></thead>
+    <tbody>
+    {% for file in list %}
+    <tr>
+        {% for row in file %}
+            <td>{{ row }} </td>
+        {% endfor%}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<!-- https://youtu.be/FO51-Ue6rlk?t=1h5m46s -->
+</div>
+</div>
+<script>
+    $('#dt1 tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    });
+    $('#dt1').dataTable();
+$(document).on('click', '#download_files', function() {
+    $('#dt1 tr.selected').each(function(index,element){
+        let id = table.row(this).id();
+        if (typeof id != 'undefined') {
+            var link = '/files/download/' + id
+            window.open(link)
+        }
+    });
+});
+</script>
+
+{% endblock %}

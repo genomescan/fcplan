@@ -1,0 +1,56 @@
+{% extends "base.html.j2" %}
+{% block content %}
+{% if request.user.is_authenticated and request.user.is_staff %}
+<div class="container">
+<div class="row">
+
+    <div class="col-sm-12 col-xl-3">
+            <button class="btn btn-danger" id="delete_lead">Delete lead</button>
+    </div>
+
+    <div class="col-sm-12 col-xl-9">
+            <script>
+                var get_table = 'Contact'
+            </script>
+            {% include "table.html.j2" %}
+        </div>
+<!-- https://youtu.be/FO51-Ue6rlk?t=1h5m46s -->
+</div>
+</div>
+{% csrf_token %}
+<script>
+    let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    $('#dt1 tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    });
+    $(document).on('click', '#delete_lead', function() {
+        let ids = [];
+
+        $('#dt1 tr.selected').each(function(index,element){
+            let id = table.row(this).id();
+            if (typeof id != 'undefined') {
+                ids.push(id)
+            }
+        });
+        ids_json = JSON.stringify(ids);
+        console.log(ids_json);
+        console.log(ids);
+        $.ajax({
+            type: "POST",
+            url: '/delete_leads/',
+            beforeSend: function(xhr){xhr.setRequestHeader('X-CSRFToken', csrftoken);},
+            data: { ids: ids_json,
+                    CSRF: csrftoken
+                    },
+            success: function (result) {
+                table.ajax.reload();
+            }
+        });
+    });
+
+</script>
+{% else %}
+<h3>Forbidden</h3>
+{% endif %}
+{% endblock %}

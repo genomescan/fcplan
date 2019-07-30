@@ -1,0 +1,1000 @@
+ 1180  ll t
+ 1181  ll -h t
+ 1182  sudo nano /etc/openvpn/nielsserver.conf 
+ 1183  sudo service openvpn.nielsserver restart
+ 1184  sudo service openvpn@nielsserver restart
+ 1185  ls
+ 1186  cat /dev/urandom > ttt
+ 1187  ll -h ttt
+ 1188  top
+ 1189  netstat -anltp
+ 1190  sudo reboot
+ 1191  cd /media
+ 1192  ls
+ 1193  df -h
+ 1194  sudo reboot
+ 1195  sudo service status openvpn@nielsserver
+ 1196  sudo service openvpn@nielsserver status
+ 1197  sudo su
+ 1198  ls
+ 1199  route
+ 1200  ifconfig
+ 1201  ping 10.8.0.6
+ 1202  top
+ 1203  route
+ 1204  ifconfig
+ 1205  top
+ 1206  cd /media/B
+ 1207  cd /media/encdev/
+ 1208  ll
+ 1209  top
+ 1210  ls
+ 1211  df -h
+ 1212  rm ubuntu\ server.vdi 
+ 1213  df -h
+ 1214  mysql -u sv -p
+ 1215  ifconfig
+ 1216  df -h
+ 1217  ps -Af | grep ssh
+ 1218  ps -Af | grep vpn
+ 1219  sudo service openvpn@server stop
+ 1220  ifconfig
+ 1221  sudo systemctl disable openvpn@server
+ 1222  sudo systemctl status openvpn@server
+ 1223  route
+ 1224  route -n
+ 1225  sudo systemctl status openvpn@nielsserver
+ 1226  ssh 10.8.0.6
+ 1227  exit
+ 1228  ssh nielsnet
+ 1229  ssh 10.8.0.6
+ 1230  route
+ 1231  route -n
+ 1232  ssh 10.8.0.6
+ 1233  cat /etc/exports 
+ 1234  ssh 10.8.0.6
+ 1235  sudo nano /etc/sysctl.conf 
+ 1236  sudo nano /etc/openvpn/nielsserver.conf 
+ 1237  ssh 10.8.0.6
+ 1238  ifconfig
+ 1239  ping 10.8.0.6
+ 1240  route
+ 1241  ssh -p 4300 localhost
+ 1242  netstat -anltp
+ 1243  cd /etc/openvpn/
+ 1244  ls
+ 1245  cd ~/EasyRSA-3.0.4/
+ 1246  ls
+ 1247  cat vars.example 
+ 1248  cat vars.example | grep KEY_CN
+ 1249  cat vars.example | grep export
+ 1250  ping 10.8.0.
+ 1251  ping 10.8.0.6
+ 1252  ping 10.8.0.7
+ 1253  ping 10.8.0.5
+ 1254  ping 10.8.0.0
+ 1255  ping 10.8.0.1
+ 1256  cd /etc/openvpn/
+ 1257  ls
+ 1258  cat ca.crt 
+ 1259  sudo cat cat.crt
+ 1260  sudo cat ca.crt
+ 1261  cat nielsserver.crt 
+ 1262  sudo cat nielsserver.crt 
+ 1263  ls
+ 1264  sudo cat nielsserver.key
+ 1265  cat ta.key 
+ 1266  sudo cat ta.key 
+ 1267  ll
+ 1268  cat update-resolv-conf 
+ 1269  route
+ 1270  ping 10.8.0.6
+ 1271  ssh 10.8.0.6
+ 1272  ping 10.8.0.6
+ 1273  locate ca.key
+ 1274  cd /etc/openvpn/
+ 1275  ls
+ 1276  cd
+ 1277  cd client-configs/
+ 1278  ls
+ 1279  cd ke
+ 1280  cd keys/
+ 1281  ls
+ 1282  cat ca.crt 
+ 1283  sudo cat ca.crt 
+ 1284  sudo cat client1.crt 
+ 1285  sudo cat client1.crt | grep CN
+ 1286  ls
+ 1287  sudo cat ta.key 
+ 1288  sudo service openvpn@nielsserver restart
+ 1289  ping 10.8.0.6
+ 1290  route
+ 1291  cd .
+ 1292  ls
+ 1293  cd ..
+ 1294  ls
+ 1295  cd files/l
+ 1296  cd files
+ 1297  ls
+ 1298  sudo service ufw status
+ 1299  ufw status
+ 1300  sudo ufw status
+ 1301  sudo ufw show
+ 1302  sudo ufw status numbered
+ 1303  sudo grep '^### tuple' /lib/ufw/user*.rules
+ 1304  sudo grep '^### tuple' /lib/ufw/ufw-init
+ 1305  sudo grep '^### tuple' /lib/ufw/ufw-init-functions 
+ 1306  sudo cat /lib/ufw/ufw-init-functions 
+ 1307  sudo cat /lib/ufw/ufw-init
+ 1308  cd /etc
+ 1309  ls u*
+ 1310  cd ufw
+ 1311  ll
+ 1312  cat user.rules 
+ 1313  sudo su
+ 1314  ifconfig
+ 1315  ssh 10.8.0.6
+ 1316  cd /media/encdev/
+ 1317  ls
+ 1318  cd ../storage/
+ 1319  ll
+ 1320  ping 10.8.0.6
+ 1321  cd client-configs/keys/
+ 1322  ls
+ 1323  cd ..
+ 1324  ll
+ 1325  cd ..
+ 1326  cd EasyRSA-3.0.4/
+ 1327  ls
+ 1328  ./easyrsa gen-req client2 nopass
+ 1329  cp pki/private/client2.key  ~/client-configs/keys/
+ 1330  route
+ 1331  scp -P 522 pki/reqs/client2.req  10.8.0.6:/home/niels
+ 1332  scp  pki/reqs/client2.req  10.8.0.6:/home/niels
+ 1333  cp /tmp/client2.crt ~/client-configs/keys/
+ 1334  cd ~/client-configs/keys/
+ 1335  ls
+ 1336  cd ..
+ 1337  ls
+ 1338  ./make_config.sh client2
+ 1339  rm files/client2.ovpn 
+ 1340  sudo ./make_config.sh client2
+ 1341  cd files/
+ 1342  ls
+ 1343  cat client2.ovpn 
+ 1344  cat client1.ovpn 
+ 1345  cat client2.ovpn 
+ 1346  cat client1.ovpn 
+ 1347  cat client2.ovpn 
+ 1348  ls
+ 1349  cat client2.ovpn 
+ 1350  cd client-configs/files/
+ 1351  ls
+ 1352  cp client2.ovpn /media/encdev/Openvpn/
+ 1353  w
+ 1354  top
+ 1355  route
+ 1356  ssh 10.8.0.6
+ 1357  route -n
+ 1358  ssh 10.8.0.6
+ 1359  ssh 10.8.0.6
+ 1360  route
+ 1361  cat /proc/sys/net/ipv4/ip_forward
+ 1362  cd /etc/openvpn/
+ 1363  ls
+ 1364  ping 10.8.0.6
+ 1365  ping 10.8.0.10
+ 1366  rute
+ 1367  route
+ 1368  sudo nano /etc/sysctl.conf 
+ 1369  sudo sysctl -p
+ 1370  ping 10.8.0.2
+ 1371  ping 10.8.0.5
+ 1372  ping 10.8.0.6
+ 1373  ping 10.8.0.10
+ 1374  sudo nano /etc/exports 
+ 1375  sudo service nfs-kernel-server restart
+ 1376  ssh 10.8.0.6
+ 1377  ping 10.8.0.10
+ 1378  ssh 10.8.0.6
+ 1379  route
+ 1380  ssh 10.8.0.6
+ 1381  w
+ 1382  route
+ 1383  sudo mysql
+ 1384  sudo mysql -p
+ 1385  mysql -p -u sv
+ 1386  nmap 10.8.0.0-255
+ 1387  sudo apt install nmap
+ 1388  nmap 10.8.0.0-255
+ 1389  ssh 10.8.0.6
+ 1390  ls
+ 1391  cd /media
+ 1392  ls
+ 1393  cd /
+ 1394  ls
+ 1395  ll
+ 1396  ssh 10.8.0.6
+ 1397  ssh 10.8.0.10
+ 1398  sudo nano /etc/ssh/sshd_config 
+ 1399  sudo service ssh restart
+ 1400  Olkn9000
+ 1401  route
+ 1402  sudo ufw deny 22
+ 1403  cat /etc/ufw/user.rules 
+ 1404  sudo cat /etc/ufw/user.rules 
+ 1405  sudo nano /etc/ufw/user.rules 
+ 1406  sudo ufw restart
+ 1407  sudo ufw disable
+ 1408  sudo ufw enable
+ 1409  sudo ufw allow from 10.8.0.0/24 to any port 22
+ 1410  sudo nano /etc/ufw/user.rules 
+ 1411  sudo ufw disable
+ 1412  sudo ufw enable
+ 1413  sudo nano /etc/ufw/user.rules 
+ 1414  ssh 10.8.0.10
+ 1415  ssh 10.8.0.6
+ 1416  route
+ 1417  ifconfig
+ 1418  sudo ufw status
+ 1419  sudo umount /media/encdev
+ 1420  sudo umount /encdev2
+ 1421  lsof /media/encdev
+ 1422  sudo umount /media/encdev
+ 1423  ssh 10.8.0.10
+ 1424  sudo umount /media/encdev
+ 1425  sudo lsof /media/encdev
+ 1426  df -h
+ 1427  sudo umount /media/storage 
+ 1428  sudo reboot
+ 1429  sudo ufw status
+ 1430  sudo ufw allow openvpn
+ 1431  sudo ufw status
+ 1432  sudo cat /etc/ufw/user.rules 
+ 1433  sudo su
+ 1434  ssh 10.8.0.10
+ 1435  sudo service nfs-kernel-server status
+ 1436  ifconfig
+ 1437  sudo service openvpn@server disable
+ 1438  sudo service openvpn@server stop
+ 1439  route
+ 1440  sudo systemctl openvpn@nielsserver status
+ 1441  sudo systemctl status openvpn@nielsserver
+ 1442  sudo systemctl status openvpn@server
+ 1443  sudo systemctl restart openvpn@nielsserver
+ 1444  cd /etc/openvpn/
+ 1445  ls
+ 1446  mv server.conf server.conf.old
+ 1447  sudo mv server.conf server.conf.old
+ 1448  grep -r server.conf *
+ 1449  sudo grep -r server.conf *
+ 1450  ls
+ 1451  sudo umount /media/encdev
+ 1452  sudo service nfs-kernel-server stop
+ 1453  sudo umount /media/encdev
+ 1454  sudo umount /encdev2
+ 1455  sudo umount /media/storage 
+ 1456  lsof /media/storage/
+ 1457  sudo cryptsetup luksClose /dev/mapper/encdev
+ 1458  sudo cryptsetup luksClose /dev/mapper/encdev2
+ 1459  lsof /media/storage/
+ 1460  sudo umount /media/storage 
+ 1461  sudo reboot
+ 1462  sudo systemctl status openvpn@server
+ 1463  sudo systemctl status openvpn@nielsserver
+ 1464  ifconfig
+ 1465  cd /media/encdev/
+ 1466  ls
+ 1467  rm ta.key 
+ 1468  sudo rm ta.key 
+ 1469  cd ..
+ 1470  sudo su
+ 1471  ls
+ 1472  route
+ 1473  sudo nano /etc/openvpn/
+ 1474  sudo nano /etc/openvpn/nielsserver.conf 
+ 1475  fg
+ 1476  sudo ufw allow from 10.8.0.0/24 to any port 943
+ 1477  netstat -anltp
+ 1478  locate openvpn_as
+ 1479  openvpn -h
+ 1480  openvpn --help
+ 1481  nmap -p  1-5000 10.8.0.1
+ 1482  sudo nano /etc/ufw/user.rules 
+ 1483  sudo ufw disable
+ 1484  sudo ufw enable
+ 1485  sudo nano /etc/ufw/user.rules 
+ 1486  sudo nano /etc/openvpn/nielsserver.conf 
+ 1487  fg
+ 1488  nmap localhost -p 1-5000
+ 1489  ls
+ 1490  ping 10.8.0.10
+ 1491  ping 10.8.0.10
+ 1492  nmap 10.8.0.10
+ 1493  nmap -Pn 10.8.0.10
+ 1494  ping 10.8.0.10
+ 1495  top
+ 1496  ssh 10.8.0.8
+ 1497  ssh 10.8.0.10
+ 1498  ls
+ 1499  cd Down
+ 1500  ll
+ 1501  speedtest
+ 1502  sudo su
+ 1503  ifconfig
+ 1504  route
+ 1505  ssh 10.8.0.6
+ 1506  cat /etc/openvpn/nielsserver.conf 
+ 1507  sudo nano /etc/openvpn/nielsserver.conf 
+ 1508  ssh 10.8.0.6
+ 1509  ls
+ 1510  cd client-configs/
+ 1511  ls
+ 1512  cd files/
+ 1513  ls
+ 1514  ssh localhost -p 4300
+ 1515  sudo systemctl restart openvpn@nielsserver
+ 1516  ssh localhost -p 4300
+ 1517  cat /etc/openvpn/nielsserver.conf 
+ 1518  route
+ 1519  cat /etc/openvpn/nielsserver.conf 
+ 1520  ssh lims2
+ 1521  ssh 172.16.110.135
+ 1522  ssh 172.16.110.136
+ 1523  ping 172.16.110.136
+ 1524  ssh nielsnet
+ 1525  sudo nano /etc/hosts
+ 1526  ssh nielsnet
+ 1527  ssh nielswork
+ 1528  ls
+ 1529  ufw status
+ 1530  sudo ufw status
+ 1531  ifconfig
+ 1532  locate *ovpn
+ 1533  cd /media/encdev/Openvpn/
+ 1534  ls
+ 1535  ll
+ 1536  cd ..
+ 1537  ls
+ 1538  cd ..
+ 1539  cd
+ 1540  ssh nielswork
+ 1541  python3
+ 1542  w
+ 1543  sudo netstat -antlp
+ 1544  mysql -u sv -p
+ 1545  cat /proc/cpuinfo
+ 1546  nmap 10.8.0.0-20
+ 1547  nmap stellarvalley.com
+ 1548  route
+ 1549  ssh nielsnet
+ 1550  cat /var/log/auth.log
+ 1551  sudo cat /var/log/auth.log
+ 1552  sudo cat /var/log/openvpn/openvpn-status.log 
+ 1553  sudo cat /var/log/openvpn/ipp.txt 
+ 1554  exit
+ 1555  cd EasyRSA-3.0.4/
+ 1556  ./easyrsa gen-req client3
+ 1557  scp pki/reqs/client3.req.h3emeDG0U6 nielsnet:/home/niels
+ 1558  cd EasyRSA-3.0.4/
+ 1559  ls
+ 1560  cd pki/reqs/
+ 1561  ls
+ 1562  ll
+ 1563  cd
+ 1564  ls
+ 1565  cp /tmp/client3.crt client-configs/keys/
+ 1566  ls
+ 1567  cd client-configs/
+ 1568  ls
+ 1569  cd keys/
+ 1570  ls
+ 1571  cat client3.crt 
+ 1572  ls
+ 1573  cd ..
+ 1574  ls
+ 1575  ./make_config.sh client3
+ 1576  ll
+ 1577  cd files/
+ 1578  ll
+ 1579  cd ..
+ 1580  cd keys/
+ 1581  ll
+ 1582  cd
+ 1583  cd EasyRSA-3.0.4/pki/private/
+ 1584  ls
+ 1585  cp client3.key.VpF9D8GYhq ~/client-configs/keys/
+ 1586  cd -
+ 1587  cd client-configs/
+ 1588  ls
+ 1589  ./make_config.sh client3
+ 1590  ls
+ 1591  cd keys/
+ 1592  ls
+ 1593  cp client3.key.VpF9D8GYhq client3.key
+ 1594  cd -
+ 1595  ./make_config.sh client3
+ 1596  cd keys/
+ 1597  ll
+ 1598  sudo chown niels:niels ca.crt
+ 1599  cd ..
+ 1600  ls
+ 1601  ./make_config.sh client3
+ 1602  cd files/
+ 1603  ls
+ 1604  cat client3.ovpn 
+ 1605  ls
+ 1606  cat client2.ovpn 
+ 1607  scp client3.ovpn nielsnet
+ 1608  rm nielsnet 
+ 1609  scp client3.ovpn nielsnet:/home/niels
+ 1610  cd client-configs/files/
+ 1611  ls
+ 1612  ll
+ 1613  cat client1.ovpn 
+ 1614  cd /media/encdev/
+ 1615  ls
+ 1616  cd Openvpn/
+ 1617  ls
+ 1618  cd ..
+ 1619  rm -R Openvpn/
+ 1620  ls
+ 1621  cd 
+ 1622  ls
+ 1623  nmap 10.8.0.1-50
+ 1624  sudo nano /etc/hosts
+ 1625  ssh nielsnet
+ 1626  cat /etc/exports 
+ 1627  ssh nielswork
+ 1628  nmap 10.8.0.1-25
+ 1629  nmap 10.8.0.1-25 -p 1-5000
+ 1630  ls
+ 1631  cd client-configs/
+ 1632  ls
+ 1633  cd files/
+ 1634  ls
+ 1635  rm client1.ovpn 
+ 1636  rm client2.ovpn 
+ 1637  ls
+ 1638  cd ..
+ 1639  ls
+ 1640  cd keys/
+ 1641  ls
+ 1642  rm client1*
+ 1643  rm client2*
+ 1644  ll
+ 1645  cd ..
+ 1646  ls
+ 1647  cat base.conf 
+ 1648  ls
+ 1649  cat make_config.sh 
+ 1650  cd 
+ 1651  cd /etc/openvpn/
+ 1652  ls
+ 1653  cat crl.pem 
+ 1654  sudo cat crl.pem 
+ 1655  cat nielsserver.
+ 1656  cat nielsserver.key 
+ 1657  sudo cat nielsserver.key 
+ 1658  sudo cat ca.crt 
+ 1659  ls
+ 1660  cat ta.key 
+ 1661  sudo cat ta.key 
+ 1662  ll
+ 1663  ls
+ 1664  w
+ 1665  netstat -anltp
+ 1666  w
+ 1667  route
+ 1668  cd client-configs/
+ 1669  ls
+ 1670  cd files/
+ 1671  ls
+ 1672  scp client3.ovpn nielsnet:/home/niels
+ 1673  scp client3.ovpn /media/encdev/
+ 1674  sudo nano /etc/nginx/sites-enabled/default 
+ 1675  nano /etc/hosts
+ 1676  sudo nano /etc/hosts
+ 1677  ssh nielsnet
+ 1678  sudo nano /etc/hosts
+ 1679  sudo nano /etc/nginx/sites-enabled/default 
+ 1680  sudo service nginx restart
+ 1681  sudo nano /etc/hosts
+ 1682  sudo service nginx restart
+ 1683  sudo nano /etc/nginx/sites-enabled/default 
+ 1684  sudo nano /etc/hosts
+ 1685  sudo service nginx restart
+ 1686  sudo nano /etc/nginx/sites-enabled/default 
+ 1687  cd /var/www
+ 1688  ls
+ 1689  sudo mkdir html2
+ 1690  cd html2
+ 1691  nano index.html
+ 1692  sudo nano index.html
+ 1693  sudo service nginx restart
+ 1694  systemctl status nginx.service
+ 1695  journalctl -xe
+ 1696  sudo nano /etc/nginx/sites-enabled/default 
+ 1697  sudo service nginx restart
+ 1698  sudo ufw allow port 801
+ 1699  sudo ufw allow from any port 801
+ 1700  sudo nano /etc/nginx/sites-enabled/default 
+ 1701  sudo service nginx restart
+ 1702  sudo nano /etc/nginx/sites-enabled/default 
+ 1703  ls
+ 1704  sudo nano /etc/nginx/sites-enabled/default 
+ 1705  sudo service nginx restart
+ 1706  ll
+ 1707  chmod +x index.html 
+ 1708  sudo chmod +x index.html 
+ 1709  sudo nano /etc/nginx/sites-enabled/default 
+ 1710  nmap -p 1-1000 nielsserver
+ 1711  sudo nano /etc/nginx/sites-enabled/default 
+ 1712  wget 10.8.0.1:801
+ 1713  cd
+ 1714  wget 10.8.0.1:801
+ 1715  cat index.html 
+ 1716  wget nielsserver.tk:801
+ 1717  cat index.html.1 
+ 1718  ufw status
+ 1719  sudo ufw status
+ 1720  sudo nano /etc/ufw/user.rules 
+ 1721  sudo service ufw reload
+ 1722  sudo service ufw restart 
+ 1723  sudo ufw status
+ 1724  sudo nano /etc/ufw/user.rules 
+ 1725  sudo nano /etc/ufw/user5.rules 
+ 1726  sudo nano /etc/ufw/user6.rules 
+ 1727  sudo ufw status
+ 1728  sudo service ufw restart 
+ 1729  sudo ufw allow 801
+ 1730  sudo ufw status
+ 1731  sudo nano /etc/nginx/sites-enabled/default 
+ 1732  sudo service nginx restart
+ 1733  sudo nano /etc/nginx/sites-enabled/default 
+ 1734  sudo service nginx restart
+ 1735  sudo nano /etc/nginx/sites-enabled/default 
+ 1736  sudo cp /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/default.old
+ 1737  sudo cp /etc/nginx/sites-enabled/default.new /etc/nginx/sites-enabled/default
+ 1738  sudo service nginx restart
+ 1739  sytemctl status nginx.service
+ 1740  systemctl status nginx.service
+ 1741  journalctl -xe
+ 1742  cat /var/log/nginx/error.log
+ 1743  sudo cat /var/log/nginx/error.log
+ 1744  sudo nano /etc/nginx/sites-enabled/default 
+ 1745  cd /etc/nginx/sites-enabled/
+ 1746  ls
+ 1747  cat default.old 
+ 1748  cat default
+ 1749  cp default.old default
+ 1750  sudo cp default.old default
+ 1751  sudo service nginx restart
+ 1752  ls
+ 1753  sudo mv default.* ~
+ 1754  sudo service nginx restart
+ 1755  cd
+ 1756  ls
+ 1757  cat default.old 
+ 1758  cd -
+ 1759  sudo nano default 
+ 1760  sudo service nginx restart
+ 1761  sudo nano default 
+ 1762  cd /var/www/html/www2
+ 1763  cd /var/www/html2
+ 1764  ls
+ 1765  sudo mv index.html index.php
+ 1766  sudo nano index.php 
+ 1767  cat /var/log/nginx/error.log
+ 1768  sudo cat /var/log/nginx/error.log
+ 1769  ll
+ 1770  sudo nano /etc/nginx/sites-enabled/default 
+ 1771  sudo service nginx restart
+ 1772  sudo cat /var/log/nginx/error.log
+ 1773  cd
+ 1774  sudo cat /etc/nginx/sites-enabled/default 
+ 1775  sudo certbot --expand -d nielsserver.tk -d stellarvalley.com -d stellarvalley.nl -d git.nielsserver.tk
+ 1776  sudo nano /etc/nginx/sites-enabled/default 
+ 1777  sudo service nginx restart 
+ 1778  sudo nano /etc/ufw/user.rules 
+ 1779  sudo nano /etc/ufw/user6.rules 
+ 1780  sudo service ufw restart
+ 1781  sudo ufw status
+ 1782  cat /etc/exports 
+ 1783  cd /media
+ 1784  ll
+ 1785  cd storage/
+ 1786  ls
+ 1787  ll
+ 1788  cd
+ 1789  ll
+ 1790  cd client-configs/keys/
+ 1791  ls
+ 1792  cp ta.key /media/encdev/
+ 1793  nmap -p 1-5000 10.8.0.0/24
+ 1794  nmap -p 1-5000 10.8.0.0-25
+ 1795  ll
+ 1796  cd /media
+ 1797  ll
+ 1798  cat /etc/exports 
+ 1799  cd /etc/openvpn/
+ 1800  ls
+ 1801  cat nielsserver.conf 
+ 1802  cat nielsserver.conf | grep mtu
+ 1803  cat nielsserver.conf | grep mmu
+ 1804  cat nielsserver.conf | grep mm
+ 1805  cd /media
+ 1806  ll
+ 1807  cd
+ 1808  cd /media
+ 1809  ll
+ 1810  cd client-configs/files/
+ 1811  ls
+ 1812  ssh nielsnet
+ 1813  cd client-configs/files/
+ 1814  ls
+ 1815  cd client-configs/files/
+ 1816  ls
+ 1817  ls -l
+ 1818  cat crl.pem 
+ 1819  cd /etc/openvpn/
+ 1820  ls
+ 1821  ll
+ 1822  sudo cp ~/crl.pem .
+ 1823  ll
+ 1824  sudo systemctl restart openvpn@nielsserver
+ 1825  sudo systemctl status openvpn@nielsserver
+ 1826  route
+ 1827  route -n
+ 1828  ifconfig
+ 1829  w
+ 1830  sudo su
+ 1831  route
+ 1832  route -n
+ 1833  sudo ufw status
+ 1834  w
+ 1835  ifconfig
+ 1836  sudo service lxc status
+ 1837  sudo service lxc stop
+ 1838  ifconfig
+ 1839  sudo service lxc-net status
+ 1840  sudo service lxc-net stop
+ 1841  ifconfig
+ 1842  sudo service lxc-net stop
+ 1843  sudo service lxc-net status
+ 1844  sudo service lxc status
+ 1845  sudo systemctl status openvpn@nielsserver.service 
+ 1846  ping 10.8.0.22
+ 1847  su git
+ 1848  su
+ 1849  cat /var/log/auth.log
+ 1850  sudo cat /var/log/auth.log
+ 1851  sudo su
+ 1852  top
+ 1853  bc -l
+ 1854  cd client-configs/files/
+ 1855  ls
+ 1856  sudo su
+ 1857  ssh localhost:4000
+ 1858  ssh localhost -p 4000
+ 1859  ssh-keygen -f "/home/niels/.ssh/known_hosts" -R "[localhost]:4000"
+ 1860  ssh localhost -p 4000
+ 1861  top
+ 1862  dmesg
+ 1863  man dmesg
+ 1864  sudo su
+ 1865  netstat -anltp | grep 400
+ 1866  ssh nielsnet
+ 1867  w
+ 1868  top
+ 1869  df -h
+ 1870  cd /media/storage/
+ 1871  ls
+ 1872  ll
+ 1873  cd /dev/mapper/
+ 1874  ll
+ 1875  top
+ 1876  w
+ 1877  ssh -p 4500 localhost
+ 1878  w
+ 1879  top
+ 1880  ls
+ 1881  rm crl.pem default.* index.html*
+ 1882  ls
+ 1883  rm default.new 
+ 1884  ls
+ 1885  cd Projects/
+ 1886  ls
+ 1887  cd /media
+ 1888  ls
+ 1889  cd storage/
+ 1890  ll
+ 1891  cd ../encdev/
+ 1892  ll
+ 1893  cd /media
+ 1894  ls
+ 1895  ll storage/
+ 1896  ll encdev/
+ 1897  w
+ 1898  df -h
+ 1899  cat /proc/cpuinfo 
+ 1900  de /var/www/html
+ 1901  ls
+ 1902  cd /var/www/html
+ 1903  ls
+ 1904  ll
+ 1905  df -g
+ 1906  df -h
+ 1907  w
+ 1908  cd /var/run
+ 1909  ls
+ 1910  sudo apt update
+ 1911  sudo apt list --upgradable 
+ 1912  sudo apt upgrade
+ 1913  df -h
+ 1914  cd /boot
+ 1915  ls
+ 1916  du -sh
+ 1917  cd -
+ 1918  ls
+ 1919  cat reboot-required
+ 1920  w
+ 1921  cat /etc/nginx/sites-enabled/default 
+ 1922  ssh nielswork
+ 1923  ssh-keygen -f "/home/niels/.ssh/known_hosts" -R "nielswork"
+ 1924  ssh nielswork
+ 1925  sudo su
+ 1926  cd /media
+ 1927  ll
+ 1928  df -h
+ 1929  cd storage/
+ 1930  ll
+ 1931  xxd encdev | head -n 1000
+ 1932  ssh nielswork
+ 1933  ssh -f -N -L :4600:localhost:4002 nielsserver.tk -p 522
+ 1934  cd Doc
+ 1935  ls
+ 1936  cd /media/encdev/
+ 1937  ls
+ 1938  cd Documents/
+ 1939  ls | grep enc
+ 1940  scp passwd.enc nielsnet:/home/niels
+ 1941  nano /etc/nginx/sites-available/
+ 1942  ls
+ 1943  cd Projects/
+ 1944  ls
+ 1945  cd ..
+ 1946  git clone ssh://git@localhost:/~/sitesv
+ 1947  ls
+ 1948  cd sitesv/
+ 1949  ls
+ 1950  sudo apt install python3-virtualenv 
+ 1951  virtualenv env
+ 1952  sudo apt install virtualenv
+ 1953  virtualenv env
+ 1954  ls
+ 1955  . env/bin/activate
+ 1956  pip --version
+ 1957  deactivate 
+ 1958  sudo apt install python3-pip
+ 1959  ls
+ 1960  . env/bin/activate
+ 1961  pip
+ 1962  pip --version
+ 1963  pip3 --version
+ 1964  pip3 install -r requirements.txt 
+ 1965  pip3 install setuptools
+ 1966  pip3 install -r requirements.txt 
+ 1967  sudo pip install mysqlclient
+ 1968  sudo pip3 install mysqlclient
+ 1969  sudo pip3 install mysql_config
+ 1970  sudo apt-get install libmysqlclient-dev
+ 1971  sudo pip3 install mysqlclient
+ 1972  gcc
+ 1973  pip3 install -r requirements.txt 
+ 1974  sudo pip3 install wheel
+ 1975  pip3 install -r requirements.txt 
+ 1976  pip3 install -U wheel
+ 1977  pip3 install -r requirements.txt 
+ 1978  cat requirements.txt 
+ 1979  sudo pip3 install mysqlclient
+ 1980  cat requirements.txt 
+ 1981  pip install mysqlclient==1.3.12
+ 1982  pip3 install mysqlclient==1.3.12
+ 1983  sudo apt install python3-mysql.connector 
+ 1984  pip3 install mysqlclient==1.3.12
+ 1985  sudo apt-get install python3.6-dev
+ 1986  pip3 install -r requirements.txt 
+ 1987  sudo apt-get install libmysqlclient-dev
+ 1988  pip3 install mysqlclient
+ 1989  deactivate
+ 1990  pip install mysqlclient
+ 1991  pip3 install mysqlclient
+ 1992  sudo pip3 install mysqlclient
+ 1993  sudo apt install python3.6-venv
+ 1994  virtualenv --version
+ 1995  sudo apt install default-libmysqlclient-dev 
+ 1996  sudo apt install python-dev
+ 1997  sudo apt install python3-dev
+ 1998  pip3 install mysqlclient
+ 1999  sudo mysql
+ 2000  python3 
+ 2001  ls
+ 2002  cd sitesv/
+ 2003  ls
+ 2004  cd sv/
+ 2005  ls
+ 2006  cat mysql.conf 
+ 2007  mysql -u niels -p
+ 2008  sudo mysql
+ 2009  mysql -u sv -p
+ 2010  sudo apt install libdpkg-perl 
+ 2011  pip3 install mysqlclient
+ 2012  ls
+ 2013  cd ..
+ 2014  ls
+ 2015  . env/bin/activate
+ 2016  ls
+ 2017  ./manage.py runserver 0.0.0.0:8000
+ 2018  python3 ./manage.py runserver 0.0.0.0:8000
+ 2019  sudo apt install python3-magic
+ 2020  python3 ./manage.py runserver 0.0.0.0:8000
+ 2021  sudo mysql
+ 2022  ls
+ 2023  cd sv
+ 2024  ls
+ 2025  nano mysql.conf 
+ 2026  ll
+ 2027  chmod 700 mysql.conf 
+ 2028  python3 ./manage.py runserver 0.0.0.0:8000
+ 2029  cd ..
+ 2030  python3 ./manage.py runserver 0.0.0.0:8000
+ 2031  python3 ./manage.py makemigrations
+ 2032  python3 ./manage.py migrate
+ 2033  python3 ./manage.py runserver 0.0.0.0:8000
+ 2034  ls
+ 2035  cd sv
+ 2036  nano settings.py 
+ 2037  python3 ./manage.py runserver 0.0.0.0:8000 &
+ 2038  ls
+ 2039  cd ..
+ 2040  ls
+ 2041  python3 ./manage.py runserver 0.0.0.0:8000 &
+ 2042  wget localhost
+ 2043  wget localhost:8000
+ 2044  cat index.html.1 
+ 2045  ufw -h
+ 2046  sudo ufw allow 8000
+ 2047  ls
+ 2048  mkdir media
+ 2049  ls
+ 2050  pytho3 manage.py createsuperuser
+ 2051  python3 manage.py createsuperuser
+ 2052  ls
+ 2053  ls -r
+ 2054  ls -R
+ 2055  ls
+ 2056  cd files
+ 2057  ls
+ 2058  jobs
+ 2059  cd /etc/nginx/sites-available/
+ 2060  ls
+ 2061  cd ..
+ 2062  cd sites-available/
+ 2063  sudo nano django.conf
+ 2064  fg
+ 2065  cd -
+ 2066  cd 
+ 2067  cd sitesv/
+ 2068  ls
+ 2069  cd sv
+ 2070  ls
+ 2071  cat wsgi.py 
+ 2072  fg
+ 2073  sudo ln -s /etc/nginx/sites-available/django.conf /etc/nginx/sites-enabled/
+ 2074  ls /etc/nginx/sites-enabled/
+ 2075  ls
+ 2076  cd ..
+ 2077  python3 manage.py collectstatic
+ 2078  sudo service nginx restart
+ 2079  systemctl status nginx.service
+ 2080  journalctl -xe
+ 2081  cat /var/log/nginx/error.log
+ 2082  sudo cat /var/log/nginx/error.log
+ 2083  ls /home/niels/sitesv/sv
+ 2084  nano /etc/nginx/sites-available/django.conf 
+ 2085  sudo nano /etc/nginx/sites-available/django.conf 
+ 2086  sudo service nginx restart
+ 2087  sudo cat /var/log/nginx/error.log
+ 2088  sudo nano /etc/nginx/sites-available/django.conf 
+ 2089  sudo locate uwsgi_params
+ 2090  sudo nano /etc/nginx/sites-available/django.conf 
+ 2091  sudo service nginx restart
+ 2092  sudo cat /var/log/nginx/error.log
+ 2093  fg
+ 2094  sudo service nginx restart
+ 2095  uwsgi --socket :8001 --wsgi-file test.py
+ 2096  pip3 install uwsgi
+ 2097* 
+ 2098  fg
+ 2099  ls
+ 2100  uwsgi --socket :8001 --module sv.wsgi:application
+ 2101  ls
+ 2102  ll
+ 2103  cd static
+ 2104  ls
+ 2105  ll
+ 2106  cd ..
+ 2107  python3 manage.py collectstatic
+ 2108  nano sv/settings.py 
+ 2109  cat sv/settings.py 
+ 2110  mkdir -p /var/www/django/static
+ 2111  sudo mkdir -p /var/www/django/static
+ 2112  sudo chown R niels:www-data /var/www/django/
+ 2113  sudo chown -R niels:www-data /var/www/django/
+ 2114  python3 manage.py collectstatic
+ 2115  uwsgi --socket :8001 --module sv.wsgi:application
+ 2116  fg
+ 2117  sudo nano /etc/nginx/sites-enabled/django.conf 
+ 2118  sudo service nginx restart
+ 2119  uwsgi --socket :8001 --module sv.wsgi:application
+ 2120  bg
+ 2121  nano sv/settings.py 
+ 2122  fg
+ 2123  uwsgi --socket :8001 --module sv.wsgi:application
+ 2124  uwsgi --http :8001 --module sv.wsgi:application
+ 2125  uwsgi --http-socket :8001 --module sv.wsgi:application
+ 2126  uwsgi --socket 0.0.0.0:8001 --module sv.wsgi:application
+ 2127  nano /etc/nginx/sites-enabled/django.conf 
+ 2128  sudo nano /etc/nginx/sites-enabled/django.conf 
+ 2129  uwsgi --socket mysite.sock --module sv.wsgi:application
+ 2130  bg
+ 2131  sudo service nginx restart
+ 2132  fg
+ 2133  uwsgi --socket mysite.sock --module sv.wsgi:application
+ 2134  bg
+ 2135  cat /var/log/nginx/error.log
+ 2136  sudo cat /var/log/nginx/error.log
+ 2137  fg
+ 2138  uwsgi --socket mysite.sock --module sv.wsgi:application --chmod-socket=664
+ 2139  bg
+ 2140  sudo cat /var/log/nginx/error.log
+ 2141  fg
+ 2142  uwsgi --socket mysite.sock --module sv.wsgi:application --chmod-socket=666
+ 2143  bg
+ 2144  sudo cat /var/log/nginx/error.log
+ 2145  fg
+ 2146  sudo nano /etc/nginx/sites-enabled/django.conf 
+ 2147  uwsgi --socket /var/www/django/mysite.sock --module sv.wsgi:application --chmod-socket=664
+ 2148  bg
+ 2149  sudo tail -f /var/log/nginx/error.log
+ 2150  bg
+ 2151  sudo nano /etc/nginx/sites-enabled/django.conf 
+ 2152  sudo service nginx restart
+ 2153  cd /var/www/
+ 2154  ll
+ 2155  cd django/
+ 2156  ll
+ 2157  fg
+ 2158  bg
+ 2159  fg 1
+ 2160  uwsgi --socket /var/www/django/mysite.sock --module sv.wsgi:application --chmod-socket=666
+ 2161  bg
+ 2162  ll
+ 2163  sudo chown niels:www-data mysite.sock 
+ 2164  ll
+ 2165  fg
+ 2166  ls
+ 2167  ll
+ 2168  jobs
+ 2169  cd -
+ 2170  cd 
+ 2171  cd sitesv/
+ 2172  ls
+ 2173  uwsgi --socket /var/www/django/mysite.sock --module sv.wsgi:application --chmod-socket=666
+ 2174  bg
+ 2175  fg
+ 2176  uwsgi --socket /var/www/django/mysite.sock --module sv.wsgi:application --chmod-socket=666 --buffer-size=32768
+ 2177  bg
+ 2178  history
+ 2179  history > history
