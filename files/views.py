@@ -46,6 +46,13 @@ def exec_background(info):
                          'job_id': info['job_id']})
 
 
+def getflowcell(request):
+    data = {}
+    for lane in range(1,9):
+        data[lane] = {'ID': f"id{lane}", 'samples': ['sample1', 'sample2', 'sample3']}
+    return JsonResponse(data)
+
+
 def savechange(request):
     f = open('testfile', 'w')
     print(request.POST)
