@@ -1,5 +1,6 @@
 import json
 import os
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 import jsonschema
@@ -47,8 +48,8 @@ def exec_background(info):
 
 def savechange(request):
     f = open('testfile', 'w')
-    f.write(request.POST)
-
+    print(request.POST)
+    return HttpResponse('werkt')
 
 def put_file(request):
     if request.user.is_authenticated:
@@ -71,18 +72,4 @@ def put_file(request):
 
 
 def test(request):
-    if request.user.is_authenticated:
-        response = repr(request)
-        if len(request.FILES) > 0:
-            data = request.FILES['name'].read()
-            data = data.decode('utf-8')
-            decoded = json.loads(data)
-            path = '/media/easystore/Runs/testfolder'
-            if not os.path.exists(path):
-                os.mkdir(path)
-            with open(path+'/samples.json', 'w') as file:
-                file.write(data);
-            response += pprint.pformat(decoded['samples'][request.POST['sample']], indent=4)
-        return HttpResponse(response+"\n")
-    else:
-        return HttpResponse('NOT LOGGED IN')
+    return render(request, 'test.j2.html')
