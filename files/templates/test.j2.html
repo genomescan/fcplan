@@ -1,0 +1,264 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style>
+                .drag-wrapper {
+            display: flex;
+            justify-content: center;
+            }
+
+            ul {
+            display: flex;
+            flex-direction: column;
+            padding: 3px !important;
+            min-height: 70vh;
+            width: 100px;
+            float:left;
+            list-style-type:none;
+            overflow-y:auto;
+            border:2px solid #888;.drag-wrapper {
+            display: flex;
+            justify-content: center;
+            }
+
+            ul {
+            display: flex;
+            flex-direction: column;
+            padding: 3px !important;
+            min-height: 70vh;
+            width: 100px;
+            float:left;
+            list-style-type:none;
+            overflow-y:auto;
+            border:2px solid #888;
+            border-radius:0.2em;
+            background:#ffffff;
+            color:#555;
+            margin-right: 5px;
+            }
+
+            /* drop target state */
+            ul[aria-dropeffect="move"] {
+            border-color:#000;
+            background:#fff;
+            }
+
+            /* drop target focus and dragover state */
+            ul[aria-dropeffect="move"]:focus,
+            ul[aria-dropeffect="move"].dragover
+            {
+            outline:none;
+            box-shadow:0 0 0 1px #fff, 0 0 0 3px #000;
+            }
+
+            /* draggable items */
+            li {
+            display:block;
+            list-style-type:none;
+            margin:0 0 2px 0;
+            padding:0.2em 0.4em;
+            border-radius:0.2em;
+            line-height:1.3;
+            }
+
+            li:hover {
+            box-shadow:0 0 0 2px #68b, inset 0 0 0 1px #ddd;
+            }
+
+            /* items focus state */
+            li:focus
+            {
+            outline:none;
+            box-shadow:0 0 0 2px #68b, inset 0 0 0 1px #ddd;
+            }
+
+            /* items grabbed state */
+            li[aria-grabbed="true"]
+            {
+            background:#fff;
+            color:#000;
+            }
+
+            @keyframes nodeInserted {
+                from { opacity: 0.2; }
+                to { opacity: 0.8; }
+            }
+
+            .item-dropzone-area {
+                height: 2rem;
+                background: #888;
+                opacity: 0.8;
+                animation-duration: 0.5s;
+                animation-name: nodeInserted;
+            }
+            border-radius:0.2em;
+            background:#ffffff;
+            color:#555;
+            margin-right: 5px;
+            }
+
+            /* drop target state */
+            ul[aria-dropeffect="move"] {
+            border-color:#000;
+            background:#fff;
+            }
+
+            /* drop target focus and dragover state */
+            ul[aria-dropeffect="move"]:focus,
+            ul[aria-dropeffect="move"].dragover
+            {
+            outline:none;
+            box-shadow:0 0 0 1px #fff, 0 0 0 3px #000;
+            }
+
+            /* draggable items */
+            li {
+            display:block;
+            list-style-type:none;
+            margin:0 0 2px 0;
+            padding:0.2em 0.4em;
+            border-radius:0.2em;
+            line-height:1.3;
+            }
+
+            li:hover {
+            box-shadow:0 0 0 2px #68b, inset 0 0 0 1px #ddd;
+            }
+
+            /* items focus state */
+            li:focus
+            {
+            outline:none;
+            box-shadow:0 0 0 2px #68b, inset 0 0 0 1px #ddd;
+            }
+
+            /* items grabbed state */
+            li[aria-grabbed="true"]
+            {
+            background:#fff;
+            color:#000;
+            }
+
+            @keyframes nodeInserted {
+                from { opacity: 0.2; }
+                to { opacity: 0.8; }
+            }
+
+            .item-dropzone-area {
+                height: 2rem;
+                background: #888;
+                opacity: 0.8;
+                animation-duration: 0.5s;
+                animation-name: nodeInserted;
+            }
+    
+    </style>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  <script src="https://unpkg.com/vue-draggable@1.0.9/lib/vue-draggable.js"></script>
+  
+  </head>
+  <body>
+  <div id="app"></div>
+  
+  <script>
+  
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+  
+  
+  Vue.use(VueDraggable.default);
+
+new Vue({
+  template: `
+  <div v-drag-and-drop:options="options" class="drag-wrapper">
+    <ul id='leftone'>
+      <li id='i1'>Item 1</li>
+      <li id='i2'>Item 2</li>
+      <li id='i3'>Item 3</li>
+    </ul>
+    <ul id='rightone'>
+      <li id='i4'>Item 4</li>
+      <li id='i5'>Item 5</li>
+      <li id='i6'>Item 6</li>
+    </ul>
+    
+  </div>
+  `,
+  data() {
+    const componentInstance = this;
+    
+    return {
+      options: {
+        // dropzoneSelector: 'ul',
+        // draggableSelector: 'li',
+        // showDropzoneAreas: true,
+        // multipleDropzonesItemsDraggingEnabled: true,
+        onDrop(event) {
+            let owner = event.owner.id;
+            let droptarget = event.droptarget.id;
+            let items = []
+            for (var i = 0 ; i < event.items.length ; i++) {
+            items.push(event.items[i].id);
+            }
+            let data = {
+                owner: owner,
+                droptarget: droptarget,
+                items: items
+            }
+            let url = 'http://localhost:8000/pylims/savechange';
+            axios.defaults.xsrfCookieName = 'csrftoken'
+            axios.defaults.xsrfHeaderName = 'X-CSRFToken'			
+
+            axios.post(url,JSON.stringify(data))
+        },
+        // onDragstart(event) {
+        //   event.stop();
+        // },
+        onDragend(event) {
+          // if you need to stop d&d
+          // event.stop();
+
+          // you can call component methods, just don't forget 
+          // that here `this` will not reference component scope,
+          // so out from this returned data object make reference
+          // to component instance
+          componentInstance.someDummyMethod();
+
+          // to detect if draggable element is dropped out
+          if (!event.droptarget) {
+            console.log('event is dropped out');
+          }
+        }
+      }
+    }
+  },
+  methods: {
+    someDummyMethod() {
+      console.log('Hello from someDummyMethod');
+    }
+  }
+}).$mount("#app");
+  
+  </script>
+  
+  </body>
+</html>
+
