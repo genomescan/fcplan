@@ -128,7 +128,7 @@ var data = {flowcell: null,
                         droptarget: droptarget,
                         items: items
                     }
-                    let url = 'http://nielswork:8000/pylims/savechange';
+                    let url = 'http://localhost:8000/pylims/savechange';
                     
                     axios.defaults.xsrfCookieName = 'csrftoken'
                     axios.defaults.xsrfHeaderName = 'X-CSRFToken'			
@@ -144,7 +144,7 @@ var app = new Vue({
   data: data,
   mounted () {
     axios
-      .get('http://nielswork:8000/pylims/getflowcell')
+      .get('http://localhost:8000/pylims/getflowcell')
       .then(response => (this.flowcell = response.data))
   }
   

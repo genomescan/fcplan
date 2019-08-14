@@ -48,8 +48,8 @@ def exec_background(info):
 
 def getflowcell(request):
     data = {}
-    for lane in range(1,9):
-        data[lane] = {'ID': f"id{lane}", 'samples': ['sample1', 'sample2', 'sample3']}
+    for lane in range(1,20):
+        data[lane] = {'ID': f"id{lane}", 'samples': ['sample1', 'sample2', 'sample3','sample1', 'sample2', 'sample3']}
     return JsonResponse(data)
 
 
@@ -57,6 +57,7 @@ def savechange(request):
     f = open('testfile', 'w')
     print(request.POST)
     return HttpResponse('werkt')
+
 
 def put_file(request):
     if request.user.is_authenticated:

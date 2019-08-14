@@ -12,7 +12,7 @@ SECRET_KEY = 'm48#u)7w1-eygicmbx+9z0v(c%%=trh-3p3!50cd$pg&@ibcui'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','lims', 'nielswork']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','lims', 'nielswork', '10.8.0.8']
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 MEDIA_URL = '/media/'
@@ -81,9 +81,14 @@ WSGI_APPLICATION = 'sv.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': BASE_DIR+'/sv/mysql.conf',
-        },
+        'NAME': 'fcplan',
+        'USER': 'niels',
+        'PASSWORD': 'Plkm9000',
+        'HOST': '10.8.0.1',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+#        'OPTIONS': {
+#            'read_default_file': BASE_DIR+'/sv/mysql.conf',
+#        },
     }
 }
 
