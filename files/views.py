@@ -6,6 +6,7 @@ from django.http import JsonResponse
 import jsonschema
 import subprocess as sp
 from datetime import datetime
+from .models import StagedSamples
 import shutil
 import signal
 import string
@@ -53,10 +54,39 @@ def getflowcell(request):
     return JsonResponse(data)
 
 
+seqdata = {
+    'platform': {10: '',
+                 2: 'Nextseq500'},
+    'a': 'b'
+}
+
+
+def get_sequencable_lanes(request, platform):
+    pass
+
+
+def getsampleinfo(id):
+    sample1 = StagedSamples.objects.get(id=id)
+    result = requests.get('http://localhost/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id))
+    sample2 = json.loads(result.content)
+    sample2['concentration'] = sample1.nmol
+    sample2['megareads'] = sample1.megareads
+    return sample2
+
+
 def savechange(request):
     f = open('testfile', 'w')
     print(request.POST)
-    return HttpResponse('werkt')
+    return HttpResponse('[savechange] werkt')
+
+
+def stagesample(request):
+    stagedsample = StagedSamples(nmol=request.POST['nmol'],
+                                 megareads=request.POST['yield'],
+                                 sample_id=request.POST['sample_id'])
+    stagedsample.save()
+
+    return HttpResponse('[stagesample] werkt')
 
 
 def put_file(request):

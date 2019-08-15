@@ -1,6 +1,5 @@
 from django.contrib import admin
 # Register your models here.
-from .models import Document, Contact
+from .models import StagedSamples
 
-admin.site.register(Document)
-admin.site.register(Contact)
+admin.site.register(StagedSamples)
