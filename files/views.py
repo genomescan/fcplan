@@ -55,9 +55,23 @@ def getflowcell(request):
 
 
 seqdata = {
-    'platform': {10: '',
+    'platform': {10: 'Novaseq6000',
                  2: 'Nextseq500'},
-    'a': 'b'
+    'flowcells': {10: {'S1': {'lanes': 2,
+                              'megareads_per_lane': 800},
+                       'S2': {'lanes': 2,
+                              'megareads_per_lane': 2000},
+                       'S4': {'lanes': 4,
+                              'megareads_per_lane': 2500},
+                       'SP': {'lanes': 2,
+                              'megareads_per_lane': 400}},
+                  2:  {'mid': {'lanes': 1,
+                                'megareads_per_lane': 130},
+                        'high': {'lanes': 1,
+                                 'megareads_per_lane': 400}}
+
+                  }
+                  }
 }
 
 
