@@ -71,12 +71,23 @@ seqdata = {
                                  'megareads_per_lane': 400}}
 
                   }
-                  }
-}
+            }
 
 
-def get_sequencable_lanes(request, platform):
-    pass
+def get_sequencable_lanes(request, platform, fctype):
+    stagedsamples = StagedSamples.objects.all(platform=platform)
+    sequencable_lanes = {[]}
+    current_megareads = 0
+    max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
+    max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
+    current_lane = 0
+    while current_megareads < max_megareads and current_lane:
+        for stagedsample in stagedsamples:
+            sample_allowed_on_lane = True  # schrijf functie (index check, project type check
+            if stagedsample.megareads < max_megareads - current_megareads and sample_allowed_on_lane:
+                sequencable_lanes[current_lane].append(stagedsample)  # zie mail
+
+
 
 
 def getsampleinfo(id):
