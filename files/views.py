@@ -49,7 +49,7 @@ def exec_background(info):
 
 def getflowcell(request):
     data = {}
-    for lane in range(1,20):
+    for lane in range(1, 4):
         data[lane] = {'ID': f"id{lane}", 'samples': ['sample1', 'sample2', 'sample3','sample1', 'sample2', 'sample3']}
     return JsonResponse(data)
 
@@ -75,25 +75,42 @@ seqdata = {
 
 
 def get_sequencable_lanes(request, platform, fctype):
-    stagedsamples = StagedSamples.objects.all(platform=platform)
-    sequencable_lanes = {[]}
+    stagedsampleids = StagedSamples.objects.all().order_by('-megareads').values_list('id', flat=True)  # platform=platform
+    ids = []
+    stagedsamples = []
+    for sample in stagedsampleids:
+        ids.append(sample)
+        stagedsamples.append(getsampleinfo(sample))
+    sequencable_lanes = {0: False, 1: False, 2: False, 3: False}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
     max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
     current_lane = 0
-    while current_megareads < max_megareads and current_lane:
+    while current_lane < max_lanes:  # current_megareads < max_megareads and
         for stagedsample in stagedsamples:
             sample_allowed_on_lane = True  # schrijf functie (index check, project type check
-            if stagedsample.megareads < max_megareads - current_megareads and sample_allowed_on_lane:
-                sequencable_lanes[current_lane].append(stagedsample)  # zie mail
-
-
+            if stagedsample['megareads'] < (max_megareads - current_megareads) \
+                    and sample_allowed_on_lane\
+                    and stagedsample['id'] in ids:
+                if sequencable_lanes[current_lane] is False:
+                    sequencable_lanes[current_lane] = {"ID": f"id{current_lane}",
+                                                       'megareads': current_megareads + stagedsample['megareads'],
+                                                       'samples': [stagedsample]}  # zie mail
+                else:
+                    sequencable_lanes[current_lane]['samples'].append(stagedsample)
+                    sequencable_lanes[current_lane]['megareads'] += stagedsample['megareads']
+                current_megareads += stagedsample['megareads']
+                ids.remove(stagedsample['id'])
+        current_lane += 1
+        current_megareads = 0
+    return JsonResponse(sequencable_lanes)
 
 
 def getsampleinfo(id):
-    sample1 = StagedSamples.objects.get(id=id)
+    sample1 = StagedSamples.objects.get(id=int(id))
     result = requests.get('http://localhost/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id))
     sample2 = json.loads(result.content)
+    sample2['id'] = sample1.pk
     sample2['concentration'] = sample1.nmol
     sample2['megareads'] = sample1.megareads
     return sample2

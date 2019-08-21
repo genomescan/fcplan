@@ -13,7 +13,7 @@
     flex-direction: column;
     padding: 3px !important;
     min-height: 70vh;
-    width: 100px;
+    width: 200px;
     float:left;
     list-style-type:none;
     overflow-y:auto;
@@ -95,8 +95,10 @@
 <div id="app">
   <div v-drag-and-drop:options="options" class="drag-wrapper">
    <ul v-for="lane in flowcell" v-bind:id="lane.ID">
-   <li v-for="item in lane.samples" v-bind:id="item">
-     {{ item }}  
+       Reads: {{ lane.megareads }}M
+   <li v-for="sample in lane.samples" v-bind:id="item">
+     {{ sample.sample_name }}<br>
+       Reads: {{ sample.megareads }}M
    </li>
    </ul>
   </div>
@@ -119,7 +121,7 @@ var data = {flowcell: null,
                 onDrop: function(event) {
                     let owner = event.owner.id;
                     let droptarget = event.droptarget.id;
-                    let items = []
+                    let items = [];
                     for (var i = 0 ; i < event.items.length ; i++) {
                     items.push(event.items[i].id);
                     }
@@ -127,7 +129,7 @@ var data = {flowcell: null,
                         owner: owner,
                         droptarget: droptarget,
                         items: items
-                    }
+                    };
                     let url = 'http://localhost:8000/pylims/savechange';
                     
                     axios.defaults.xsrfCookieName = 'csrftoken'
@@ -144,7 +146,7 @@ var app = new Vue({
   data: data,
   mounted () {
     axios
-      .get('http://localhost:8000/pylims/getflowcell')
+      .get('http://localhost:8000/pylims/get_sequencable_lanes/10/SP')
       .then(response => (this.flowcell = response.data))
   }
   

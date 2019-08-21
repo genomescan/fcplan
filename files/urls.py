@@ -8,4 +8,6 @@ urlpatterns = [
     path('pylims/savechange', views.savechange, name='savechange'),
     path('pylims/getflowcell', views.getflowcell, name='getflowcell'),
     path('pylims/stagesample', views.stagesample, name='stagesample'),
+    path('pylims/getsampleinfo/<id>', views.getsampleinfo, name='getsampleinfo'),
+    path('pylims/get_sequencable_lanes/<platform>/<fctype>', views.get_sequencable_lanes, name='get_sequencable_lanes'),
 ]
