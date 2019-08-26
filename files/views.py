@@ -81,7 +81,7 @@ def get_sequencable_lanes(request, platform, fctype):
     for sample in stagedsampleids:
         ids.append(sample)
         stagedsamples.append(getsampleinfo(sample))
-    sequencable_lanes = {0: False, 1: False, 2: False, 3: False}
+    sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': []}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
     max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
@@ -92,13 +92,11 @@ def get_sequencable_lanes(request, platform, fctype):
             if stagedsample['megareads'] < (max_megareads - current_megareads) \
                     and sample_allowed_on_lane\
                     and stagedsample['id'] in ids:
-                if sequencable_lanes[current_lane] is False:
-                    sequencable_lanes[current_lane] = {"ID": f"id{current_lane}",
-                                                       'megareads': current_megareads + stagedsample['megareads'],
-                                                       'samples': [stagedsample]}  # zie mail
+                if sequencable_lanes["lane"+str(current_lane)] is False:
+                    sequencable_lanes["lane"+str(current_lane)] = [stagedsample]  # zie mail
                 else:
-                    sequencable_lanes[current_lane]['samples'].append(stagedsample)
-                    sequencable_lanes[current_lane]['megareads'] += stagedsample['megareads']
+                    sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
+
                 current_megareads += stagedsample['megareads']
                 ids.remove(stagedsample['id'])
         current_lane += 1

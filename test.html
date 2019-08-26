@@ -84,9 +84,17 @@
   
   <script src="vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
-  <script src="https://unpkg.com/vue-draggable@1.0.9/lib/vue-draggable.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js" type="module"></script>
+  <!--<script src="https://unpkg.com/vue-draggable@1.0.9/lib/vue-draggable.js"></script>-->
   <script>
+
+import draggable from 'vuedraggable'
   Vue.use(VueDraggable.default);
+
   </script>
   </head>
   
@@ -96,11 +104,14 @@
   <div v-drag-and-drop:options="options" class="drag-wrapper">
    <ul v-for="lane in flowcell" v-bind:id="lane.ID">
        Reads: {{ lane.megareads }}M
-   <li v-for="sample in lane.samples" v-bind:id="item">
+   <li v-for="sample in lane.samples" v-bind:id="sample.sample_name">
      {{ sample.sample_name }}<br>
        Reads: {{ sample.megareads }}M
    </li>
    </ul>
+      <input type="text" v-model="message">
+      {{ message }}
+      {{ reversed_message }}
   </div>
 </div>
 
@@ -110,7 +121,8 @@ var flowcell;
 
 
 
-var data = {flowcell: null, 
+var data = {flowcell: null,
+            message: "Hello",
             options: {
                 dropzoneSelector: 'ul',
                 draggableSelector: 'li',
@@ -122,8 +134,9 @@ var data = {flowcell: null,
                     let owner = event.owner.id;
                     let droptarget = event.droptarget.id;
                     let items = [];
+                    console.log(event.items)
                     for (var i = 0 ; i < event.items.length ; i++) {
-                    items.push(event.items[i].id);
+                        items.push(event.items[i].id);
                     }
                     let data = {
                         owner: owner,
@@ -146,9 +159,15 @@ var app = new Vue({
   data: data,
   mounted () {
     axios
-      .get('http://localhost:8000/pylims/get_sequencable_lanes/10/SP')
+      .get('http://localhost:8000/pylims/get_sequencable_lanes/10/S4')
       .then(response => (this.flowcell = response.data))
-  }
+  },
+    computed: {
+        reversed_message: function () {
+        // `this` points to the vm instance
+        return this.message.split('').reverse().join('')
+    }
+    }
   
   
 
