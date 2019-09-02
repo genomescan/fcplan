@@ -58,20 +58,44 @@ seqdata = {
     'platform': {10: 'Novaseq6000',
                  2: 'Nextseq500'},
     'flowcells': {10: {'S1': {'lanes': 2,
-                              'megareads_per_lane': 800},
+                              'megareads_per_lane': 800},  # +/- 5%
                        'S2': {'lanes': 2,
-                              'megareads_per_lane': 2000},
+                              'megareads_per_lane': 2000},  # +/- 5%
                        'S4': {'lanes': 4,
-                              'megareads_per_lane': 2500},
+                              'megareads_per_lane': 2500},  # +/- 5%
                        'SP': {'lanes': 2,
-                              'megareads_per_lane': 400}},
+                              'megareads_per_lane': 400}},  # +/- 5%
                   2:  {'mid': {'lanes': 1,
-                                'megareads_per_lane': 130},
+                                'megareads_per_lane': 130},  # +/- 5%
                         'high': {'lanes': 1,
-                                 'megareads_per_lane': 400}}
+                                 'megareads_per_lane': 400}}  # +/- 5%
 
                   }
             }
+
+
+def index_allowed_on_lane(barcode, lane):
+    i7_indices1 = [barcodes[0] for barcodes in barcode]
+    i5_indices1 = [barcodes[1] for barcodes in barcode]
+    print(lane)
+    indices2 = [sample['index_sequences'] for sample in lane]
+    print(indices2)
+    i7_indices2 = [barcodes[0] for barcodes in indices2]
+    #i5_indices2 = [barcodes[1] for barcodes in indices2]
+    #print('i71:', i7_indices1, 'i72', i7_indices2, 'i51', i5_indices1, 'i52', i5_indices2)
+    return True
+
+
+def sample_allowed_on_lane(sample, lane):
+    if index_allowed_on_lane(sample['index_sequences'], lane) and \
+            project_type_allowed_on_lane(sample['project_type'], lane):
+        return True
+    else:
+        return False
+
+
+def project_type_allowed_on_lane(project_type, lane):
+    return True
 
 
 def get_sequencable_lanes(request, platform, fctype):
@@ -81,6 +105,7 @@ def get_sequencable_lanes(request, platform, fctype):
     for sample in stagedsampleids:
         ids.append(sample)
         stagedsamples.append(getsampleinfo(sample))
+    print(stagedsamples)
     sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': []}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
@@ -88,14 +113,11 @@ def get_sequencable_lanes(request, platform, fctype):
     current_lane = 0
     while current_lane < max_lanes:  # current_megareads < max_megareads and
         for stagedsample in stagedsamples:
-            sample_allowed_on_lane = True  # schrijf functie (index check, project type check
+
             if stagedsample['megareads'] < (max_megareads - current_megareads) \
-                    and sample_allowed_on_lane\
+                    and sample_allowed_on_lane(stagedsample, sequencable_lanes["lane"+str(current_lane)],)\
                     and stagedsample['id'] in ids:
-                if sequencable_lanes["lane"+str(current_lane)] is False:
-                    sequencable_lanes["lane"+str(current_lane)] = [stagedsample]  # zie mail
-                else:
-                    sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
+                sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
 
                 current_megareads += stagedsample['megareads']
                 ids.remove(stagedsample['id'])
@@ -111,6 +133,7 @@ def getsampleinfo(id):
     sample2['id'] = sample1.pk
     sample2['concentration'] = sample1.nmol
     sample2['megareads'] = sample1.megareads
+    sample2['collisioncode'] = 'black'
     return sample2
 
 
