@@ -7,6 +7,7 @@ import jsonschema
 import subprocess as sp
 from datetime import datetime
 from .models import StagedSamples
+from .models import CombinationRestrictions
 import shutil
 import signal
 import string
@@ -96,20 +97,39 @@ def index_allowed_on_lane(barcode, lane):
     return not (problem1 and problem2)
 
 
+def project_type_allowed_on_lane(project_type, lane):
+    project_types = [samples['project_type'] for samples in lane]
+    print(project_type)
+    print(project_types)
+    crs = CombinationRestrictions.objects.all()
+
+    for cr in crs:
+
+        # restriction == False: 'type1 not allowed with type2 and vice versa'
+        if cr.project_type1 == project_type and cr.project_type2 in project_types and not cr.restriction:
+            print("NEE1")
+            return False
+        # restriction == True: 'type1 ONLY allowed with type2 but not vice versa'
+        # print(cr.project_type1, project_type, cr.project_type2, project_types, cr.restriction)
+        if cr.project_type1 == project_type and cr.project_type2 in project_types and cr.restriction:
+            print("B")
+            for project_type2 in project_types:
+                print("C")
+                if project_type2 != project_type and cr.project_type2 != project_type2:
+                    print("NEE2")
+                    return False
+    return True
+
+
 def sample_allowed_on_lane(sample, lane):
     if index_allowed_on_lane(sample['index_sequences'], lane) and \
             project_type_allowed_on_lane(sample['project_type'], lane):
         return True
-    else:
-        return False
-
-
-def project_type_allowed_on_lane(project_type, lane):
-    return True
+    return False
 
 
 def get_sequencable_lanes(request, platform, fctype):
-    stagedsampleids = StagedSamples.objects.all().order_by('-megareads').values_list('id', flat=True)  # platform=platform
+    stagedsampleids = StagedSamples.objects.all().order_by('priority', '-megareads').values_list('id', flat=True)  # platform=platform
     ids = []
     stagedsamples = []
     for sample in stagedsampleids:
@@ -154,7 +174,8 @@ def savechange(request):
 def stagesample(request):
     stagedsample = StagedSamples(nmol=request.POST['nmol'],
                                  megareads=request.POST['yield'],
-                                 sample_id=request.POST['sample_id'])
+                                 sample_id=request.POST['sample_id'],
+                                 priority=request.POST['priority'])
     stagedsample.save()
 
     return HttpResponse('[stagesample] werkt')
