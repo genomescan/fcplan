@@ -77,13 +77,23 @@ seqdata = {
 def index_allowed_on_lane(barcode, lane):
     i7_indices1 = [barcodes[0] for barcodes in barcode]
     i5_indices1 = [barcodes[1] for barcodes in barcode]
-    print(lane)
     indices2 = [sample['index_sequences'] for sample in lane]
-    print(indices2)
-    i7_indices2 = [barcodes[0] for barcodes in indices2]
-    #i5_indices2 = [barcodes[1] for barcodes in indices2]
-    #print('i71:', i7_indices1, 'i72', i7_indices2, 'i51', i5_indices1, 'i52', i5_indices2)
-    return True
+    indices3 = []
+    for indices in indices2:
+        for index in indices:
+            indices3.append(index)
+    i7_indices2 = [barcodes[0] for barcodes in indices3]
+    i5_indices2 = [barcodes[1] for barcodes in indices3]
+    problem1 = problem2 = False
+    for index1 in i7_indices1:
+        for index2 in i7_indices2:
+            if index1 == index2:
+                problem1 = True
+    for index1 in i5_indices1:
+        for index2 in i5_indices2:
+            if index1 == index2:
+                problem2 = True
+    return not (problem1 and problem2)
 
 
 def sample_allowed_on_lane(sample, lane):
@@ -105,7 +115,7 @@ def get_sequencable_lanes(request, platform, fctype):
     for sample in stagedsampleids:
         ids.append(sample)
         stagedsamples.append(getsampleinfo(sample))
-    print(stagedsamples)
+    #print(stagedsamples)
     sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': []}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
@@ -113,14 +123,12 @@ def get_sequencable_lanes(request, platform, fctype):
     current_lane = 0
     while current_lane < max_lanes:  # current_megareads < max_megareads and
         for stagedsample in stagedsamples:
-
             if stagedsample['megareads'] < (max_megareads - current_megareads) \
-                    and sample_allowed_on_lane(stagedsample, sequencable_lanes["lane"+str(current_lane)],)\
                     and stagedsample['id'] in ids:
-                sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
-
-                current_megareads += stagedsample['megareads']
-                ids.remove(stagedsample['id'])
+                if sample_allowed_on_lane(stagedsample, sequencable_lanes["lane"+str(current_lane)]):
+                    sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
+                    current_megareads += stagedsample['megareads']
+                    ids.remove(stagedsample['id'])
         current_lane += 1
         current_megareads = 0
     return JsonResponse(sequencable_lanes)
