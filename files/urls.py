@@ -10,4 +10,5 @@ urlpatterns = [
     path('pylims/stagesample', views.stagesample, name='stagesample'),
     path('pylims/getsampleinfo/<id>', views.getsampleinfo, name='getsampleinfo'),
     path('pylims/get_sequencable_lanes/<platform>/<fctype>', views.get_sequencable_lanes, name='get_sequencable_lanes'),
+    path('pylims/getstage', views.getstage, name='getstage'),
 ]

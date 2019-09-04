@@ -58,21 +58,29 @@ def getflowcell(request):
 seqdata = {
     'platform': {10: 'Novaseq6000',
                  2: 'Nextseq500'},
-    'flowcells': {10: {'S1': {'lanes': 2,
+    'flowcells': {10: {'S1': {'lanes': 1,
+                              'megareads_per_lane': 1600},  # +/- 5%
+                       'S2': {'lanes': 1,
+                              'megareads_per_lane': 4000},  # +/- 5%
+                       'S4': {'lanes': 1,
+                              'megareads_per_lane': 10000},  # +/- 5%
+                       'SP': {'lanes': 1,
                               'megareads_per_lane': 800},  # +/- 5%
-                       'S2': {'lanes': 2,
+                       'S1x': {'lanes': 2,
+                              'megareads_per_lane': 800},  # +/- 5%
+                       'S2x': {'lanes': 2,
                               'megareads_per_lane': 2000},  # +/- 5%
-                       'S4': {'lanes': 4,
+                       'S4x': {'lanes': 4,
                               'megareads_per_lane': 2500},  # +/- 5%
-                       'SP': {'lanes': 2,
+                       'SPx': {'lanes': 2,
                               'megareads_per_lane': 400}},  # +/- 5%
                   2:  {'mid': {'lanes': 1,
-                                'megareads_per_lane': 130},  # +/- 5%
-                        'high': {'lanes': 1,
-                                 'megareads_per_lane': 400}}  # +/- 5%
+                               'megareads_per_lane': 130},  # +/- 5%
+                       'high': {'lanes': 1,
+                                'megareads_per_lane': 400}}  # +/- 5%
 
                   }
-            }
+    }
 
 
 def index_allowed_on_lane(barcode, lane):
@@ -136,14 +144,14 @@ def get_sequencable_lanes(request, platform, fctype):
         ids.append(sample)
         stagedsamples.append(getsampleinfo(sample))
     #print(stagedsamples)
-    sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': []}
+    sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': [], 'stage': []}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
     max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
     current_lane = 0
     while current_lane < max_lanes:  # current_megareads < max_megareads and
         for stagedsample in stagedsamples:
-            if stagedsample['megareads'] < (max_megareads - current_megareads) \
+            if stagedsample['megareads'] < (float(max_megareads)*1.05 - current_megareads) \
                     and stagedsample['id'] in ids:
                 if sample_allowed_on_lane(stagedsample, sequencable_lanes["lane"+str(current_lane)]):
                     sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
@@ -151,6 +159,31 @@ def get_sequencable_lanes(request, platform, fctype):
                     ids.remove(stagedsample['id'])
         current_lane += 1
         current_megareads = 0
+    for stagedsample in stagedsamples:
+        if stagedsample['id'] in ids:
+            sequencable_lanes["stage"].append(stagedsample)
+            ids.remove(stagedsample['id'])
+    pop_keys = []
+    for key, lane in sequencable_lanes.items():
+        if len(lane) == 0:
+            pop_keys.append(key)
+    for key in pop_keys:
+        sequencable_lanes.pop(key)
+    return JsonResponse(sequencable_lanes)
+
+
+def getstage(request):
+    stagedsampleids = StagedSamples.objects.all().order_by('priority', '-megareads').values_list('id',
+                                                                                                 flat=True)  # platform=platform
+    sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': [], 'stage': []}
+    ids = []
+    stagedsamples = []
+    for sample in stagedsampleids:
+        ids.append(sample)
+        stagedsamples.append(getsampleinfo(sample))
+    for stagedsample in stagedsamples:
+        if stagedsample['id'] in ids:
+            sequencable_lanes["stage"].append(stagedsample)
     return JsonResponse(sequencable_lanes)
 
 
