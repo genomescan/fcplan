@@ -6,8 +6,8 @@ from django.http import JsonResponse
 import jsonschema
 import subprocess as sp
 from datetime import datetime
-from .models import StagedSamples
-from .models import CombinationRestrictions
+from .models import StagedSample
+from .models import CombinationRestriction
 import shutil
 import signal
 import string
@@ -105,27 +105,27 @@ def index_allowed_on_lane(barcode, lane):
     return not (problem1 and problem2)
 
 
-def project_type_allowed_on_lane(project_type, lane):
-    project_types = [samples['project_type'] for samples in lane]
-    print(project_type)
-    print(project_types)
-    crs = CombinationRestrictions.objects.all()
-
+def project_type_allowed_on_lane(project_typeA, lane):
+    project_types = [int(samples['project_type']) for samples in lane]
+    crs = CombinationRestriction.objects.all()
+    project_typeA = int(project_typeA)
     for cr in crs:
-
-        # restriction == False: 'type1 not allowed with type2 and vice versa'
-        if cr.project_type1 == project_type and cr.project_type2 in project_types and not cr.restriction:
-            print("NEE1")
-            return False
-        # restriction == True: 'type1 ONLY allowed with type2 but not vice versa'
-        # print(cr.project_type1, project_type, cr.project_type2, project_types, cr.restriction)
-        if cr.project_type1 == project_type and cr.project_type2 in project_types and cr.restriction:
-            print("B")
-            for project_type2 in project_types:
-                print("C")
-                if project_type2 != project_type and cr.project_type2 != project_type2:
-                    print("NEE2")
+        for project_typeB in project_types:
+            if project_typeA == project_typeB:
+                return True
+            if not cr.restriction:
+                if (project_typeA == cr.project_type1 and project_typeB == cr.project_type2) or \
+                   (project_typeA == cr.project_type2 and project_typeB == cr.project_type1):
                     return False
+            if cr.restriction:
+                print(project_typeA, project_typeB, cr.project_type1, cr.project_type2)
+                if (project_typeB == cr.project_type1) and (project_typeA != cr.project_type2):
+                    for cr2 in crs:
+                        if (project_typeB == cr2.project_type1) and (project_typeA == cr2.project_type2):
+                            return True
+
+                    return False
+
     return True
 
 
@@ -137,13 +137,17 @@ def sample_allowed_on_lane(sample, lane):
 
 
 def get_sequencable_lanes(request, platform, fctype):
-    stagedsampleids = StagedSamples.objects.all().order_by('priority', '-megareads').values_list('id', flat=True)  # platform=platform
+    stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id', flat=True)  # platform=platform
     ids = []
     stagedsamples = []
     for sample in stagedsampleids:
-        ids.append(sample)
-        stagedsamples.append(getsampleinfo(sample))
-    #print(stagedsamples)
+        informed_sample = getsampleinfo(sample)
+        print("Informed_sample:", informed_sample)
+        if informed_sample['project_platform'] == platform:
+            ids.append(sample)
+            stagedsamples.append(informed_sample)
+    print("Requested platform: ", platform, "Requested fctype: ", fctype)
+    print(stagedsamples)
     sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': [], 'stage': []}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
@@ -165,16 +169,19 @@ def get_sequencable_lanes(request, platform, fctype):
             ids.remove(stagedsample['id'])
     pop_keys = []
     for key, lane in sequencable_lanes.items():
-        if len(lane) == 0:
+        if len(lane) == 0 and key != 'stage':
             pop_keys.append(key)
     for key in pop_keys:
         sequencable_lanes.pop(key)
-    return JsonResponse(sequencable_lanes)
+    return JsonResponse({'lanes': sequencable_lanes,
+                         'maxLoading': max_megareads,
+                         'platform': platform,
+                         'platforms': seqdata['platform']})
 
 
 def getstage(request):
-    stagedsampleids = StagedSamples.objects.all().order_by('priority', '-megareads').values_list('id',
-                                                                                                 flat=True)  # platform=platform
+    stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id',
+                                                                                                flat=True)  # platform=platform
     sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': [], 'stage': []}
     ids = []
     stagedsamples = []
@@ -184,17 +191,20 @@ def getstage(request):
     for stagedsample in stagedsamples:
         if stagedsample['id'] in ids:
             sequencable_lanes["stage"].append(stagedsample)
-    return JsonResponse(sequencable_lanes)
+    return JsonResponse({'lanes': sequencable_lanes,
+                         'maxLoading': 0,
+                         'platforms': seqdata['platform']})
 
 
 def getsampleinfo(id):
-    sample1 = StagedSamples.objects.get(id=int(id))
+    sample1 = StagedSample.objects.get(id=int(id))
     result = requests.get('http://localhost/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id))
     sample2 = json.loads(result.content)
     sample2['id'] = sample1.pk
     sample2['concentration'] = sample1.nmol
     sample2['megareads'] = sample1.megareads
     sample2['collisioncode'] = 'black'
+    sample2['priority'] = sample1.priority
     return sample2
 
 
@@ -205,10 +215,10 @@ def savechange(request):
 
 
 def stagesample(request):
-    stagedsample = StagedSamples(nmol=request.POST['nmol'],
-                                 megareads=request.POST['yield'],
-                                 sample_id=request.POST['sample_id'],
-                                 priority=request.POST['priority'])
+    stagedsample = StagedSample(nmol=request.POST['nmol'],
+                                megareads=request.POST['yield'],
+                                sample_id=request.POST['sample_id'],
+                                priority=request.POST['priority'])
     stagedsample.save()
 
     return HttpResponse('[stagesample] werkt')
