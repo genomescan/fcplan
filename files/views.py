@@ -14,6 +14,7 @@ import string
 from time import sleep
 import requests
 from pathlib import Path
+from django.core import serializers
 
 
 def csrf_failure(request, reason=""):
@@ -176,7 +177,8 @@ def get_sequencable_lanes(request, platform, fctype):
     return JsonResponse({'lanes': sequencable_lanes,
                          'maxLoading': max_megareads,
                          'platform': platform,
-                         'platforms': seqdata['platform']})
+                         'platforms': seqdata['platform'],
+                         'combinationRestrictions': serializers.serialize('json', CombinationRestriction.objects.all())})
 
 
 def getstage(request):
@@ -193,7 +195,8 @@ def getstage(request):
             sequencable_lanes["stage"].append(stagedsample)
     return JsonResponse({'lanes': sequencable_lanes,
                          'maxLoading': 0,
-                         'platforms': seqdata['platform']})
+                         'platforms': seqdata['platform'],
+                         'combinationRestrictions': list(CombinationRestriction.objects.values())})
 
 
 def getsampleinfo(id):
