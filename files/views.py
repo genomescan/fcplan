@@ -178,7 +178,7 @@ def get_sequencable_lanes(request, platform, fctype):
                          'maxLoading': max_megareads,
                          'platform': platform,
                          'platforms': seqdata['platform'],
-                         'combinationRestrictions': serializers.serialize('json', CombinationRestriction.objects.all())})
+                         'combinationRestrictions': list(CombinationRestriction.objects.values())})
 
 
 def getstage(request):
