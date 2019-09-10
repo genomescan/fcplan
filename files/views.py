@@ -138,21 +138,23 @@ def sample_allowed_on_lane(sample, lane):
 
 
 def get_sequencable_lanes(request, platform, fctype):
-    stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id', flat=True)  # platform=platform
+    stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id', flat=True)
     ids = []
     stagedsamples = []
     for sample in stagedsampleids:
         informed_sample = getsampleinfo(sample)
-        print("Informed_sample:", informed_sample)
         if informed_sample['project_platform'] == platform:
             ids.append(sample)
             stagedsamples.append(informed_sample)
-    print("Requested platform: ", platform, "Requested fctype: ", fctype)
-    print(stagedsamples)
-    sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': [], 'stage': []}
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
     max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
+    sequencable_lanes = {}
+    lane_count = 0
+    while lane_count <= (max_lanes - 1):
+        sequencable_lanes['lane'+str(lane_count)] = []
+        lane_count += 1
+    sequencable_lanes['stage'] = []
     current_lane = 0
     while current_lane < max_lanes:  # current_megareads < max_megareads and
         for stagedsample in stagedsamples:
@@ -168,12 +170,7 @@ def get_sequencable_lanes(request, platform, fctype):
         if stagedsample['id'] in ids:
             sequencable_lanes["stage"].append(stagedsample)
             ids.remove(stagedsample['id'])
-    pop_keys = []
-    for key, lane in sequencable_lanes.items():
-        if len(lane) == 0 and key != 'stage':
-            pop_keys.append(key)
-    for key in pop_keys:
-        sequencable_lanes.pop(key)
+
     return JsonResponse({'lanes': sequencable_lanes,
                          'maxLoading': max_megareads,
                          'platform': platform,
