@@ -201,10 +201,12 @@ def getsampleinfo(id):
     result = requests.get('http://localhost/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id))
     sample2 = json.loads(result.content)
     sample2['id'] = sample1.pk
+    sample2['sample_id'] = sample1.sample_id
     sample2['concentration'] = sample1.nmol
     sample2['megareads'] = sample1.megareads
     sample2['collisioncode'] = 'black'
     sample2['priority'] = sample1.priority
+    sample2['remark'] = sample1.remark
     return sample2
 
 
@@ -218,10 +220,24 @@ def stagesample(request):
     stagedsample = StagedSample(nmol=request.POST['nmol'],
                                 megareads=request.POST['yield'],
                                 sample_id=request.POST['sample_id'],
+                                remark=request.POST['remark'],
                                 priority=request.POST['priority'])
     stagedsample.save()
 
     return HttpResponse('[stagesample] werkt')
+
+
+def save_remark(request):
+    stagedsample = StagedSample.objects.get(sample_id=json.loads(request.body.decode('utf-8'))['pk'])
+    stagedsample.remark = json.loads(request.body.decode('utf-8'))['remark']
+    stagedsample.save()
+    return HttpResponse("OK")
+
+
+def remove_sample(request):
+    stagedsample = StagedSample.objects.get(sample_id=json.loads(request.body.decode('utf-8'))['pk'])
+    stagedsample.delete()
+    return HttpResponse("OK")
 
 
 def put_file(request):

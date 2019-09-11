@@ -10,6 +10,7 @@ class StagedSample(models.Model):
     nmol = models.FloatField()
     megareads = models.FloatField()
     priority = models.IntegerField()
+    remark = models.CharField(max_length=100, default='')
 
 
 class CombinationRestriction(models.Model):
