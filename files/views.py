@@ -8,6 +8,7 @@ import subprocess as sp
 from datetime import datetime
 from .models import StagedSample
 from .models import CombinationRestriction
+from sv import settings as svsettings
 import shutil
 import signal
 import string
@@ -146,6 +147,8 @@ def get_sequencable_lanes(request, platform, fctype):
         if informed_sample['project_platform'] == platform:
             ids.append(sample)
             stagedsamples.append(informed_sample)
+    print(stagedsamples)
+    stagedsamples = sorted(stagedsamples, key=lambda v: v['sample_name'])
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
     max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
@@ -162,6 +165,7 @@ def get_sequencable_lanes(request, platform, fctype):
                     and stagedsample['id'] in ids:
                 if sample_allowed_on_lane(stagedsample, sequencable_lanes["lane"+str(current_lane)]):
                     sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
+                    print("Sample placed in lane:", stagedsample)
                     current_megareads += stagedsample['megareads']
                     ids.remove(stagedsample['id'])
         current_lane += 1
@@ -190,6 +194,7 @@ def getstage(request):
     for stagedsample in stagedsamples:
         if stagedsample['id'] in ids:
             sequencable_lanes["stage"].append(stagedsample)
+            print("Sample placed on stage:", stagedsample)
     return JsonResponse({'lanes': sequencable_lanes,
                          'maxLoading': 0,
                          'platforms': seqdata['platform'],
@@ -198,7 +203,8 @@ def getstage(request):
 
 def getsampleinfo(id):
     sample1 = StagedSample.objects.get(id=int(id))
-    result = requests.get('http://localhost/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id))
+    result = requests.get('http://lims/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id),
+                          verify=svsettings.GSCACERT_FILE)
     sample2 = json.loads(result.content)
     sample2['id'] = sample1.pk
     sample2['sample_id'] = sample1.sample_id
