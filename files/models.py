@@ -19,3 +19,8 @@ class CombinationRestriction(models.Model):
     project_type1 = models.IntegerField()
     project_type2 = models.IntegerField()
     restriction = models.BooleanField(choices=((True, ' is only allowed with '), (False, ' is not allowed with ')))
+
+
+class SavedFlowcell(models.Model):
+    fc_id = models.CharField(max_length=15)
+    jsonified_flowcell = models.TextField()
