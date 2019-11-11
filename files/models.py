@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class StagedSample(models.Model):
     def __str__(self):
-        return str(self.sample_id)
+        return str(self.id) + " " + str(self.sample_id)
 
     sample_id = models.IntegerField()
     nmol = models.FloatField()

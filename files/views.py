@@ -107,6 +107,22 @@ def index_allowed_on_lane(barcode, lane):
     return not (problem1 and problem2)
 
 
+def save_on_stage(request):
+    data = json.loads(request.body.decode('utf-8'))
+    try:
+        get = StagedSample.objects.get(sample_id=data['sample_id'])
+        if get is not None:
+            return HttpResponse('Sample already on stage')
+    except StagedSample.DoesNotExist:
+        pass
+    staged_sample = StagedSample(sample_id=data['sample_id'],
+                                 nmol=0.0,
+                                 megareads=data['megareads'],
+                                 priority=data['priority'],
+                                 remark=data['remark'] if data['remark'] is not None else '')
+    return HttpResponse(staged_sample.save())
+
+
 def project_type_allowed_on_lane(project_typeA, lane):
     project_types = [int(samples['project_type']) for samples in lane]
     crs = CombinationRestriction.objects.all()
@@ -182,6 +198,12 @@ def get_sequencable_lanes(request, platform, fctype):
                          'combinationRestrictions': list(CombinationRestriction.objects.values())})
 
 
+def save_flowcell(request):
+    jsonified_flowcell = request.body.decode('utf-8')
+    print(jsonified_flowcell)
+    return HttpResponse('werkt')
+
+
 def getstage(request):
     stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id',
                                                                                                 flat=True)  # platform=platform
@@ -203,8 +225,9 @@ def getstage(request):
 
 def getsampleinfo(id):
     sample1 = StagedSample.objects.get(id=int(id))
-    result = requests.get('http://lims/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id),
+    result = requests.get('https://lims/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id),
                           verify=svsettings.GSCACERT_FILE)
+    print(result)
     sample2 = json.loads(result.content)
     sample2['id'] = sample1.pk
     sample2['sample_id'] = sample1.sample_id
