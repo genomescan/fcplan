@@ -107,25 +107,6 @@ def index_allowed_on_lane(barcode, lane):
     return not (problem1 and problem2)
 
 
-def save_on_stage(request):
-    data = json.loads(request.body.decode('utf-8'))
-    try:
-        print(data['sample_id'])
-        get = StagedSample.objects.get(sample_id=data['sample_id'])
-        if get is not None:
-            print(get)
-            return HttpResponse('Sample already on stage')
-    except StagedSample.DoesNotExist:
-        pass
-    staged_sample = StagedSample(sample_id=data['sample_id'],
-                                 nmol=0.0,
-                                 megareads=data['megareads'],
-                                 priority=data['priority'],
-                                 remark=data['remark'] if data['remark'] is not None else '')
-    staged_sample.save()
-    return HttpResponse(StagedSample.objects.latest('pk')._get_pk_val())
-
-
 def project_type_allowed_on_lane(project_typeA, lane):
     project_types = [int(samples['project_type']) for samples in lane]
     crs = CombinationRestriction.objects.all()
@@ -139,7 +120,7 @@ def project_type_allowed_on_lane(project_typeA, lane):
                    (project_typeA == cr.project_type2 and project_typeB == cr.project_type1):
                     return False
             if cr.restriction:
-                print(project_typeA, project_typeB, cr.project_type1, cr.project_type2)
+                # print(project_typeA, project_typeB, cr.project_type1, cr.project_type2)
                 if (project_typeB == cr.project_type1) and (project_typeA != cr.project_type2):
                     for cr2 in crs:
                         if (project_typeB == cr2.project_type1) and (project_typeA == cr2.project_type2):
@@ -166,7 +147,6 @@ def get_sequencable_lanes(request, platform, fctype):
         if informed_sample['project_platform'] == platform:
             ids.append(sample)
             stagedsamples.append(informed_sample)
-    print(stagedsamples)
     stagedsamples = sorted(stagedsamples, key=lambda v: v['sample_name'])
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
@@ -184,7 +164,6 @@ def get_sequencable_lanes(request, platform, fctype):
                     and stagedsample['id'] in ids:
                 if sample_allowed_on_lane(stagedsample, sequencable_lanes["lane"+str(current_lane)]):
                     sequencable_lanes["lane"+str(current_lane)].append(stagedsample)
-                    print("Sample placed in lane:", stagedsample)
                     current_megareads += stagedsample['megareads']
                     ids.remove(stagedsample['id'])
         current_lane += 1
@@ -201,12 +180,6 @@ def get_sequencable_lanes(request, platform, fctype):
                          'combinationRestrictions': list(CombinationRestriction.objects.values())})
 
 
-def save_flowcell(request):
-    jsonified_flowcell = request.body.decode('utf-8')
-    print(jsonified_flowcell)
-    return HttpResponse('werkt')
-
-
 def getstage(request):
     stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id',
                                                                                                 flat=True)  # platform=platform
@@ -219,7 +192,6 @@ def getstage(request):
     for stagedsample in stagedsamples:
         if stagedsample['id'] in ids:
             sequencable_lanes["stage"].append(stagedsample)
-            print("Sample placed on stage:", stagedsample)
     return JsonResponse({'lanes': sequencable_lanes,
                          'maxLoading': 0,
                          'platforms': seqdata['platform'],
@@ -230,7 +202,6 @@ def getsampleinfo(id):
     sample1 = StagedSample.objects.get(id=int(id))
     result = requests.get('https://lims/modules/samples/actions/get_staged_info.php?id='+str(sample1.sample_id),
                           verify=svsettings.GSCACERT_FILE)
-    print(result)
     sample2 = json.loads(result.content)
     sample2['id'] = sample1.pk
     sample2['sample_id'] = sample1.sample_id
@@ -242,10 +213,21 @@ def getsampleinfo(id):
     return sample2
 
 
-def savechange(request):
-    f = open('testfile', 'w')
-    print(request.POST)
-    return HttpResponse('[savechange] werkt')
+def save_on_stage(request):
+    data = json.loads(request.body.decode('utf-8'))
+    try:
+        get = StagedSample.objects.get(sample_id=data['sample_id'])
+        if get is not None:
+            return HttpResponse('Sample already on stage')
+    except StagedSample.DoesNotExist:
+        pass
+    staged_sample = StagedSample(sample_id=data['sample_id'],
+                                 nmol=0.0,
+                                 megareads=data['megareads'],
+                                 priority=data['priority'],
+                                 remark=data['remark'] if data['remark'] is not None else '')
+    staged_sample.save()
+    return HttpResponse(StagedSample.objects.latest('pk')._get_pk_val())
 
 
 def stagesample(request):
@@ -260,14 +242,16 @@ def stagesample(request):
 
 
 def save_remark(request):
-    stagedsample = StagedSample.objects.get(sample_id=json.loads(request.body.decode('utf-8'))['pk'])
-    stagedsample.remark = json.loads(request.body.decode('utf-8'))['remark']
+    data = json.loads(request.body.decode('utf-8'))
+    stagedsample = StagedSample.objects.get(sample_id=data['pk'])
+    stagedsample.remark = data['remark']
+    stagedsample.megareads = data['megareads']
+    stagedsample.priority = data['priority']
     stagedsample.save()
     return HttpResponse("OK")
 
 
 def remove_sample(request):
-    print(json.loads(request.body.decode('utf-8'))['pk'])
     stagedsample = StagedSample.objects.get(sample_id=json.loads(request.body.decode('utf-8'))['pk'])
     stagedsample.delete()
     return HttpResponse("OK")
