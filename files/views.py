@@ -110,8 +110,10 @@ def index_allowed_on_lane(barcode, lane):
 def save_on_stage(request):
     data = json.loads(request.body.decode('utf-8'))
     try:
+        print(data['sample_id'])
         get = StagedSample.objects.get(sample_id=data['sample_id'])
         if get is not None:
+            print(get)
             return HttpResponse('Sample already on stage')
     except StagedSample.DoesNotExist:
         pass
@@ -120,7 +122,8 @@ def save_on_stage(request):
                                  megareads=data['megareads'],
                                  priority=data['priority'],
                                  remark=data['remark'] if data['remark'] is not None else '')
-    return HttpResponse(staged_sample.save())
+    staged_sample.save()
+    return HttpResponse(StagedSample.objects.latest('pk')._get_pk_val())
 
 
 def project_type_allowed_on_lane(project_typeA, lane):
@@ -264,6 +267,7 @@ def save_remark(request):
 
 
 def remove_sample(request):
+    print(json.loads(request.body.decode('utf-8'))['pk'])
     stagedsample = StagedSample.objects.get(sample_id=json.loads(request.body.decode('utf-8'))['pk'])
     stagedsample.delete()
     return HttpResponse("OK")
