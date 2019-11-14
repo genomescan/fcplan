@@ -180,7 +180,7 @@ def get_sequencable_lanes(request, platform, fctype):
                          'combinationRestrictions': list(CombinationRestriction.objects.values())})
 
 
-def getstage(request):
+def getstage(request, seq_fc='', seq_type=''):
     stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id',
                                                                                                 flat=True)  # platform=platform
     sequencable_lanes = {'lane0': [], 'lane1': [], 'lane2': [], 'lane3': [], 'stage': []}
@@ -192,8 +192,11 @@ def getstage(request):
     for stagedsample in stagedsamples:
         if stagedsample['id'] in ids:
             sequencable_lanes["stage"].append(stagedsample)
+    print(seq_type)
+    print(seq_fc)
+    print(seqdata['flowcells'][int(seq_fc)][seq_type]['megareads_per_lane'] if seq_fc != '' else 0)
     return JsonResponse({'lanes': sequencable_lanes,
-                         'maxLoading': 0,
+                         'maxLoading': seqdata['flowcells'][int(seq_fc)][seq_type]['megareads_per_lane'] if seq_fc != '' else 0,
                          'platforms': seqdata['platform'],
                          'combinationRestrictions': list(CombinationRestriction.objects.values())})
 

@@ -10,6 +10,7 @@ urlpatterns = [
     path('pylims/getsampleinfo/<id>', views.getsampleinfo, name='getsampleinfo'),
     path('pylims/get_sequencable_lanes/<platform>/<fctype>', views.get_sequencable_lanes, name='get_sequencable_lanes'),
     path('pylims/getstage', views.getstage, name='getstage'),
+    path('pylims/getstage/<seq_type>/<seq_fc>', views.getstage, name='getstage'),
     path('pylims/remove_sample', views.remove_sample, name='remove_sample'),
     path('pylims/save_remark', views.save_remark, name='save_remark'),
     path('pylims/save_on_stage', views.save_on_stage, name='save_on_stage'),
