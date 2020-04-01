@@ -120,13 +120,13 @@ def project_type_allowed_on_lane(project_typeA, lane):
                    (project_typeA == cr.project_type2 and project_typeB == cr.project_type1):
                     return False
             if cr.restriction:
-                # print(project_typeA, project_typeB, cr.project_type1, cr.project_type2)
+                print(project_typeA, project_typeB, cr.project_type1, cr.project_type2)
                 if (project_typeB == cr.project_type1) and (project_typeA != cr.project_type2):
                     for cr2 in crs:
                         if (project_typeB == cr2.project_type1) and (project_typeA == cr2.project_type2):
                             return True
 
-                    return False
+                return False
 
     return True
 
@@ -140,6 +140,7 @@ def sample_allowed_on_lane(sample, lane):
 
 def get_sequencable_lanes(request, platform, fctype):
     stagedsampleids = StagedSample.objects.all().order_by('priority', '-megareads').values_list('id', flat=True)
+    print(stagedsampleids)
     ids = []
     stagedsamples = []
     for sample in stagedsampleids:
@@ -148,6 +149,7 @@ def get_sequencable_lanes(request, platform, fctype):
             ids.append(sample)
             stagedsamples.append(informed_sample)
     stagedsamples = sorted(stagedsamples, key=lambda v: v['sample_name'])
+    stagedsamples = sorted(stagedsamples, key=lambda v: v['priority'])
     current_megareads = 0
     max_megareads = seqdata['flowcells'][int(platform)][fctype]['megareads_per_lane']
     max_lanes = seqdata['flowcells'][int(platform)][fctype]['lanes']
@@ -252,6 +254,17 @@ def save_remark(request):
     stagedsample.priority = data['priority']
     stagedsample.save()
     return HttpResponse("OK")
+
+
+def remove_lanes_from_stage(request):
+    data = json.loads(request.body.decode('utf-8'))
+    for key, lane in data['lanes'].items():
+        if key != 'stage':
+            for sample in lane:
+                print(sample['sample_id'])
+                sample = StagedSample.objects.get(sample_id=sample['sample_id'])
+                sample.delete()
+    return HttpResponse("doethet")
 
 
 def remove_sample(request):

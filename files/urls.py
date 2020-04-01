@@ -14,4 +14,5 @@ urlpatterns = [
     path('pylims/remove_sample', views.remove_sample, name='remove_sample'),
     path('pylims/save_remark', views.save_remark, name='save_remark'),
     path('pylims/save_on_stage', views.save_on_stage, name='save_on_stage'),
+    path('pylims/remove_lanes_from_stage', views.remove_lanes_from_stage, name='remove_lanes_from_stage')
 ]
